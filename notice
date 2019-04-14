@@ -11,3 +11,6 @@
 
 5、使用高德地图，
 libs
+
+这是一个巨坑，不设置这一个东西，无法定位，！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+mLocationClient.setApiKey("acca13bdbabbc9aa9add26592325c921");

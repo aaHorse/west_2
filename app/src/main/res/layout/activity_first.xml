@@ -61,7 +61,7 @@
             android:id="@+id/fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:name="com.example.zexiger.myapplication_1.fragment.QQLogin"
+            android:name="com.example.zexiger.myapplication.fragment.QQLogin"
             />
     </FrameLayout>
 </FrameLayout>

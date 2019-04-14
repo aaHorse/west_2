@@ -5,7 +5,7 @@
     <version value="1"></version>
     <list>
         <!--表对象-->
-        <mapping class="com.example.zexiger.myapplication_1.db.QQ_messege"/>
-        <mapping class="com.example.zexiger.myapplication_1.db.FlagFirst"/>
+        <mapping class="com.example.zexiger.myapplication.db.QQ_messege"/>
+        <mapping class="com.example.zexiger.myapplication.db.FlagFirst"/>
     </list>
 </litepal>
