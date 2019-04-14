@@ -34,7 +34,7 @@
                 android:textSize="18sp" />
             <TextView
                 android:layout_marginTop="6dp"
-                android:text="菜鸟窝高级会员"
+                android:text="学号：221701414"
                 android:textColor="#ffffff"
                 android:textSize="14sp"
                 android:layout_width="wrap_content"

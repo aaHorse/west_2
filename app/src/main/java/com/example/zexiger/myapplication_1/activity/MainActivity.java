@@ -6,11 +6,14 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TextClock;
@@ -24,6 +27,7 @@ import com.example.zexiger.myapplication_1.base.BaseActivity;
 import com.example.zexiger.myapplication_1.base.DefineView;
 import com.example.zexiger.myapplication_1.db.QQ_messege;
 import com.example.zexiger.myapplication_1.entity.LeftItemMenu;
+import com.example.zexiger.myapplication_1.fragment.Fragment_main_right;
 import com.example.zexiger.myapplication_1.widget.DragLayout;
 import com.nineoldandroids.view.ViewHelper;
 import com.yanzhenjie.recyclerview.OnItemClickListener;
@@ -71,12 +75,18 @@ public class MainActivity extends BaseActivity implements DefineView {
     * */
     public static Bundle bundle;
 
+    /*
+    * 动态添加碎片
+    * */
+    FragmentManager fragmentManager;
+    FragmentTransaction transaction;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
+        fragmentManager=getSupportFragmentManager();
         bundle=savedInstanceState;
 
         setStatusBar();
@@ -133,7 +143,10 @@ public class MainActivity extends BaseActivity implements DefineView {
     }
     @Override
     public void bindData() {
-
+        Fragment fragment=new Fragment_main_right();
+        transaction=fragmentManager.beginTransaction();
+        transaction.replace(R.id.line_3,fragment);
+        transaction.commit();
     }
 
     /*
@@ -194,10 +207,24 @@ public class MainActivity extends BaseActivity implements DefineView {
         Toast.makeText(MainActivity.this,"点击了1",Toast.LENGTH_SHORT).show();
         findViewById(R.id.button_2).setBackgroundColor(Color.parseColor("#00A8bb"));
         findViewById(R.id.button_3).setBackgroundColor(Color.parseColor("#00A8E1"));
+        Fragment fragment=new Fragment_main_right();
+        transaction=fragmentManager.beginTransaction();
+        transaction.replace(R.id.line_3,fragment);
+        transaction.commit();
     }
     @OnClick(R.id.button_3)void button_2(){
         Toast.makeText(MainActivity.this,"点击了2",Toast.LENGTH_SHORT).show();
         findViewById(R.id.button_2).setBackgroundColor(Color.parseColor("#00A8E1"));
         findViewById(R.id.button_3).setBackgroundColor(Color.parseColor("#00A8bb"));
+        Fragment fragment=new Fragment_main_right();
+        transaction=fragmentManager.beginTransaction();
+        transaction.replace(R.id.line_3,fragment);
+        transaction.commit();
     }
 }
+
+
+
+/*
+* 4月20号晚上七点
+* */

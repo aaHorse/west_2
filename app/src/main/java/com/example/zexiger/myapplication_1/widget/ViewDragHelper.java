@@ -31,16 +31,6 @@ import android.view.animation.Interpolator;
 
 import java.util.Arrays;
 
-/**
- * ViewDragHelper源代码 从Google Android 源代码中复制过来
- * ViewDragHelper注释实现类
- * 对于自定义ViewGroup而言这边的ViewDragHelper是一个很不错的实用程序类。
- * 它给我们提供一系列的方法和相关状态，让我们可以进行拖拽移动或者重新定位ViewGroup中子视图View。
- * 作者：江清清 on 15/11/24 20:15
- * 邮箱：jiangqqlmj@163.com
- * QQ：781931404
- * 公司：江苏中天科技软件技术有限公司
- */
 public class ViewDragHelper {
     private static final String TAG = "ViewDragHelper";
 
