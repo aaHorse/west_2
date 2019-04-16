@@ -26,6 +26,7 @@ import com.example.zexiger.myapplication.base.DefineView;
 import com.example.zexiger.myapplication.db.QQ_messege;
 import com.example.zexiger.myapplication.entity.LeftItemMenu;
 import com.example.zexiger.myapplication.fragment.Fragment_main_right;
+import com.example.zexiger.myapplication.fragment.Fragment_sousuo;
 import com.example.zexiger.myapplication.widget.DragLayout;
 import com.nineoldandroids.view.ViewHelper;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
@@ -273,6 +274,13 @@ public class MainActivity extends BaseActivity implements DefineView {
         Toast.makeText(MainActivity.this,"点击了悬浮按钮",Toast.LENGTH_SHORT).show();
         showMenuDialog();
     }
+    @OnClick(R.id.top_bar_search_btn)void button_sousuo(){
+        FragmentTransaction transaction=fragmentManager.beginTransaction();
+        Fragment fragment=new Fragment_sousuo();
+        transaction.replace(R.id.line_5,fragment);
+        transaction.commit();
+        show_specific();
+    }
 
     private void showMenuDialog() {
         int mCurrentDialogStyle = com.qmuiteam.qmui.R.style.QMUI_Dialog;
@@ -290,7 +298,7 @@ public class MainActivity extends BaseActivity implements DefineView {
     }
 
     /*
-    * 切换，简略和具体显示信心两个碎片
+    * 切换，简略和具体显示信心两个碎片,还有搜索的碎片界面
     * */
     public static void show_brife(){
         linearLayout_brife.setVisibility(View.VISIBLE);
