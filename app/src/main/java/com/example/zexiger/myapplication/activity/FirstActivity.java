@@ -1,15 +1,21 @@
 package com.example.zexiger.myapplication.activity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import com.example.zexiger.myapplication.R;
 import com.example.zexiger.myapplication.base.BaseActivity;
 import com.example.zexiger.myapplication.db.FlagFirst;
+import com.example.zexiger.myapplication.fragment.Fragment_number;
 import com.example.zexiger.myapplication.fragment.QQLogin;
 import com.tencent.connect.common.Constants;
 import com.tencent.tauth.Tencent;
@@ -28,11 +34,17 @@ public class FirstActivity extends BaseActivity {
     @BindView(R.id.frame_layout)FrameLayout frameLayout;
     @BindView(R.id.line)FrameLayout frameLayout_2;
     private Fragment fragment;
+    private static FragmentManager fragmentManager;
+    private static LinearLayout linearLayout_4;
+    private static LinearLayout linearLayout_5;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
         ButterKnife.bind(this);
+        fragmentManager= getSupportFragmentManager();
+        linearLayout_4=findViewById(R.id.line_4);
+        linearLayout_5=findViewById(R.id.line_5);
         frameLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,5 +77,13 @@ public class FirstActivity extends BaseActivity {
             Tencent.onActivityResultData(requestCode,resultCode,data,mIUiListener);
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    /*
+    * 用输入学号界面替换掉QQ点击登录界面
+    * */
+    public static void replace_QQ(){
+        linearLayout_4.setVisibility(View.GONE);
+        linearLayout_5.setVisibility(View.VISIBLE);
     }
 }

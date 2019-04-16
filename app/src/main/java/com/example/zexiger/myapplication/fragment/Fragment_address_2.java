@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 
 import com.amap.api.location.AMapLocation;
@@ -32,19 +31,17 @@ import com.example.zexiger.myapplication.base.MyApplication;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
-public class Fragment_main extends Fragment {
-    private Activity activity;
+public class Fragment_address_2 extends Fragment {
+    private MainActivity activity;
     private Context context;
 
     @BindView(R.id.map)MapView mapView;
     private AMap aMap;
     private LatLonPoint searchLatlonPoint;
-    double latitude;
-    double longtitude;
+    public double latitude;
+    public double longtitude;
 
-    //////////
     //声明AMapLocationClientOption对象
     public AMapLocationClientOption mLocationOption = null;
     //声明AMapLocationClient类对象
@@ -57,7 +54,13 @@ public class Fragment_main extends Fragment {
                 if (amapLocation.getErrorCode() == 0) {
                     latitude=amapLocation.getLatitude();//获取纬度
                     longtitude=amapLocation.getLongitude();//获取经度
-                    Log.d("ttttt","经度"+longtitude+"纬度"+latitude);
+                    Log.d("ttttt","这个反了，先设置纬度，再设置经度,经度"+longtitude+"纬度"+latitude);
+                    /*
+                     * 获取一次定位之后，才设置地图
+                     * */
+                    setUpMap();
+                    LatLng latLng = new LatLng(latitude, longtitude);
+                    aMap.moveCamera(CameraUpdateFactory.changeLatLng(latLng));//设置中心点
                 } else {
                     //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
                     Log.d("ttttt", "location Error, ErrCode:"
@@ -71,15 +74,14 @@ public class Fragment_main extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_address_2, container, false);
         ButterKnife.bind(this,view);
-        activity=(MainActivity)getActivity();
+        activity=(MainActivity) getActivity();
         context=getContext();
 
         mapView.onCreate(MainActivity.bundle);
         aMap=mapView.getMap();
-        setUpMap();
         dingwei();
 
         aMap.setOnCameraChangeListener(new AMap.OnCameraChangeListener() {
@@ -91,19 +93,14 @@ public class Fragment_main extends Fragment {
             @Override
             public void onCameraChangeFinish(CameraPosition cameraPosition) {
                 searchLatlonPoint = new LatLonPoint(cameraPosition.target.latitude, cameraPosition.target.longitude);
+                //
+                //activity.setLocaltion(latitude,longtitude);
             }
         });
-
         return view;
     }
 
-    @OnClick(R.id.button_1)void button_1(){
-        Toast.makeText(context,"你点击了测试地图",Toast.LENGTH_SHORT).show();
-    }
-
     private void setUpMap() {
-        LatLng latLng = new LatLng(longtitude, latitude);
-        aMap.moveCamera(CameraUpdateFactory.changeLatLng(latLng));//设置中心点
         aMap.moveCamera(CameraUpdateFactory.zoomTo(30)); // 设置地图可视缩放大小
         aMap.setOnMapClickListener(new AMap.OnMapClickListener() {
             @Override
@@ -115,44 +112,33 @@ public class Fragment_main extends Fragment {
                 markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.local));
                 markerOptions.position(latLng);
                 aMap.addMarker(markerOptions);
-                aMap.moveCamera(CameraUpdateFactory.changeLatLng(latLng));
+                //aMap.moveCamera(CameraUpdateFactory.changeLatLng(latLng));
             }
         });
     }
 
     private void dingwei() {
-/*        MyLocationStyle myLocationStyle;
-        myLocationStyle = new MyLocationStyle();//初始化定位蓝点样式类myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE);//连续定位、且将视角移动到地图中心点，定位点依照设备方向旋转，并且会跟随设备移动。（1秒1次定位）如果不设置myLocationType，默认也会执行此种模式。
-        myLocationStyle.interval(2000); //设置连续定位模式下的定位间隔，只在连续定位模式下生效，单次定位模式下不会生效。单位为毫秒。
-        aMap.setMyLocationStyle(myLocationStyle);//设置定位蓝点的Style
-//aMap.getUiSettings().setMyLocationButtonEnabled(true);设置默认定位按钮是否显示，非必需设置。
-        aMap.setMyLocationEnabled(true);// 设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。*/
-
         aMap.setMyLocationEnabled(true);
-//初始化定位
+        //初始化定位
         mLocationClient = new AMapLocationClient(MyApplication.getContext());
         mLocationClient.setApiKey("acca13bdbabbc9aa9add26592325c921");
-//设置定位回调监听
+        //设置定位回调监听
         mLocationClient.setLocationListener(mLocationListener);
-
-
-//初始化AMapLocationClientOption对象
+        //初始化AMapLocationClientOption对象
         mLocationOption = new AMapLocationClientOption();
-
         //设置定位模式为AMapLocationMode.Hight_Accuracy，高精度模式。
         mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
-
         //设置定位间隔,单位毫秒,默认为2000ms，最低1000ms。
         mLocationOption.setInterval(1000);
-
         //设置是否返回地址信息（默认返回地址信息）
         mLocationOption.setNeedAddress(true);
         //单位是毫秒，默认30000毫秒，建议超时时间不要低于8000毫秒。
         mLocationOption.setHttpTimeOut(20000);
-
+        //设置只定位一次
+        mLocationOption.setOnceLocation(true);
         //给定位客户端对象设置定位参数
         mLocationClient.setLocationOption(mLocationOption);
-//启动定位
+        //启动定位
         mLocationClient.startLocation();
     }
 }

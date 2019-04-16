@@ -10,21 +10,24 @@ import android.widget.TextView;
 import com.example.zexiger.myapplication.R;
 import com.example.zexiger.myapplication.entity.Item_main;
 
+import java.io.BufferedReader;
 import java.util.List;
+
+import butterknife.ButterKnife;
 
 public class ItemMainAdapter extends RecyclerView.Adapter<ItemMainAdapter.ViewHolder> {
     private ViewHolder viewHolder;
     private List<Item_main> lists;
+
 
     public ItemMainAdapter(List<Item_main>lists){
         this.lists=lists;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder{
-        public TextView textView;
         public ViewHolder(View view){
             super(view);
-            textView=view.findViewById(R.id.text);
+            ButterKnife.bind(this,view);
         }
     }
 
@@ -40,7 +43,6 @@ public class ItemMainAdapter extends RecyclerView.Adapter<ItemMainAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         Item_main item_main=(Item_main)lists.get(i);
-        viewHolder.textView.setText(item_main.getStr());
     }
 
     @Override

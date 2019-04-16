@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.zexiger.myapplication.R;
+import com.example.zexiger.myapplication.activity.FirstActivity;
 import com.example.zexiger.myapplication.activity.MainActivity;
 import com.example.zexiger.myapplication.db.FlagFirst;
 import com.example.zexiger.myapplication.db.QQ_messege;
@@ -39,7 +40,7 @@ public class QQLogin extends Fragment {
     public static BaseUiListener mIUiListener;
     private UserInfo mUserInfo;
 
-    private Activity activity;
+    private FirstActivity activity;
     private Context context;
 
     @Nullable
@@ -47,7 +48,7 @@ public class QQLogin extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_qq_login, container, false);
         ButterKnife.bind(this,view);
-        activity=getActivity();
+        activity=(FirstActivity)getActivity();
         context=getContext();
         return view;
     }
@@ -144,8 +145,9 @@ public class QQLogin extends Fragment {
                                     /*
                                     * 跳转页面
                                     * */
-                                    MainActivity.startActivity(context);
-                                    activity.finish();
+                                    activity.replace_QQ();
+/*                                    MainActivity.startActivity(context);
+                                    activity.finish();*/
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }

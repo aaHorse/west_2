@@ -7,39 +7,52 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.zexiger.myapplication.R;
+import com.example.zexiger.myapplication.activity.MainActivity;
 import com.example.zexiger.myapplication.adapter.ItemMainAdapter;
 import com.example.zexiger.myapplication.entity.Item_main;
 import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIDefaultRefreshOffsetCalculator;
 import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout;
+import com.yanzhenjie.recyclerview.OnItemClickListener;
 import com.yanzhenjie.recyclerview.SwipeRecyclerView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class Fragment_main_right extends Fragment {
-    private Activity activity;
+    private MainActivity activity;
     private Context context;
     private List<Item_main>lists=new ArrayList<>();
     @BindView(R.id.main)
     QMUIPullRefreshLayout mPullRefreshLayout;
     private SwipeRecyclerView swipeRecyclerView;
+    private String str;
+    private ItemMainAdapter adapter;
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main_rigth, container, false);
         ButterKnife.bind(this,view);
-        activity=getActivity();
+        activity=(MainActivity)getActivity();
         context=getContext();
+        Bundle bundle=getArguments();
+        str=bundle.getString("flag");
+        Toast.makeText(context,str,Toast.LENGTH_SHORT).show();
         swipeRecyclerView=(SwipeRecyclerView)view.findViewById(R.id.rv);
         /*
         * 初始化
@@ -47,6 +60,7 @@ public class Fragment_main_right extends Fragment {
         * */
         init_list();
         init_rv();
+        init();
         return view;
     }
 
@@ -66,8 +80,22 @@ public class Fragment_main_right extends Fragment {
     * */
     private void init_rv(){
         LinearLayoutManager layoutManager=new LinearLayoutManager(context);
-        ItemMainAdapter adapter=new ItemMainAdapter(lists);
+        adapter=new ItemMainAdapter(lists);
         swipeRecyclerView.setLayoutManager(layoutManager);
+        swipeRecyclerView.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View itemView, int position) {
+                //打开具体显示的界面
+                FragmentTransaction transaction=MainActivity.fragmentManager.beginTransaction();
+                Bundle bundle=new Bundle();
+                bundle.putString("number","信息对应的唯一id");
+                Fragment fragment=new Fragment_specific();
+                fragment.setArguments(bundle);
+                transaction.replace(R.id.line_5,fragment);
+                transaction.commit();
+                activity.show_specific();
+            }
+        });
         swipeRecyclerView.setAdapter(adapter);
     }
 
@@ -79,12 +107,12 @@ public class Fragment_main_right extends Fragment {
         mPullRefreshLayout.setOnPullListener(new QMUIPullRefreshLayout.OnPullListener() {
             @Override
             public void onMoveTarget(int offset) {
-
+                Log.d("ttttt","11111111");
             }
 
             @Override
             public void onMoveRefreshView(int offset) {
-
+                Log.d("ttttt","11111211");
             }
 
             @Override
@@ -92,11 +120,18 @@ public class Fragment_main_right extends Fragment {
                 mPullRefreshLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        //onDataLoaded();
+                        onDataLoaded();
+                        Log.d("ttttt","11131111");
+                        Toast.makeText(context,"你点击了刷新",Toast.LENGTH_SHORT).show();
                         mPullRefreshLayout.finishRefresh();
                     }
                 }, 2000);
             }
         });
+    }
+
+    private void onDataLoaded() {
+        Collections.shuffle(lists);
+        adapter.notifyDataSetChanged();
     }
 }

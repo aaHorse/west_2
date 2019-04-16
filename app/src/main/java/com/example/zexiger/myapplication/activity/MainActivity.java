@@ -1,6 +1,7 @@
 package com.example.zexiger.myapplication.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -13,6 +14,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,10 +25,10 @@ import com.example.zexiger.myapplication.base.BaseActivity;
 import com.example.zexiger.myapplication.base.DefineView;
 import com.example.zexiger.myapplication.db.QQ_messege;
 import com.example.zexiger.myapplication.entity.LeftItemMenu;
-import com.example.zexiger.myapplication.fragment.Fragment_main;
 import com.example.zexiger.myapplication.fragment.Fragment_main_right;
 import com.example.zexiger.myapplication.widget.DragLayout;
 import com.nineoldandroids.view.ViewHelper;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.yanzhenjie.recyclerview.OnItemClickListener;
 import com.yanzhenjie.recyclerview.SwipeRecyclerView;
 
@@ -79,14 +81,22 @@ public class MainActivity extends BaseActivity implements DefineView {
     /*
     * 动态添加碎片
     * */
-    FragmentManager fragmentManager;
+    public static FragmentManager fragmentManager;
     FragmentTransaction transaction;
+
+    /*
+    * 信息的两种不同显示界面
+    * */
+    private static LinearLayout linearLayout_brife;
+    private static LinearLayout linearLayout_specific;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        linearLayout_brife=(LinearLayout)findViewById(R.id.line_4);
+        linearLayout_specific=(LinearLayout)findViewById(R.id.line_5);
         fragmentManager=getSupportFragmentManager();
         bundle=savedInstanceState;
         Log.d("ttttt",sHA1(MainActivity.this));
@@ -172,6 +182,9 @@ public class MainActivity extends BaseActivity implements DefineView {
     @Override
     public void bindData() {
         Fragment fragment=new Fragment_main_right();
+        Bundle bundle=new Bundle();
+        bundle.putString("flag","找失主");
+        fragment.setArguments(bundle);
         transaction=fragmentManager.beginTransaction();
         transaction.replace(R.id.line_3,fragment);
         transaction.commit();
@@ -235,7 +248,10 @@ public class MainActivity extends BaseActivity implements DefineView {
         Toast.makeText(MainActivity.this,"点击了1",Toast.LENGTH_SHORT).show();
         findViewById(R.id.button_2).setBackgroundColor(Color.parseColor("#00A8bb"));
         findViewById(R.id.button_3).setBackgroundColor(Color.parseColor("#00A8E1"));
-        Fragment fragment=new Fragment_main();
+        Fragment fragment=new Fragment_main_right();
+        Bundle bundle=new Bundle();
+        bundle.putString("flag","找失主");
+        fragment.setArguments(bundle);
         transaction=fragmentManager.beginTransaction();
         transaction.replace(R.id.line_3,fragment);
         transaction.commit();
@@ -245,10 +261,46 @@ public class MainActivity extends BaseActivity implements DefineView {
         findViewById(R.id.button_2).setBackgroundColor(Color.parseColor("#00A8E1"));
         findViewById(R.id.button_3).setBackgroundColor(Color.parseColor("#00A8bb"));
         Fragment fragment=new Fragment_main_right();
+        Bundle bundle=new Bundle();
+        bundle.putString("flag","找失物");
+        fragment.setArguments(bundle);
         transaction=fragmentManager.beginTransaction();
         transaction.replace(R.id.line_3,fragment);
         transaction.commit();
     }
+
+    @OnClick(R.id.fab)void fab(){
+        Toast.makeText(MainActivity.this,"点击了悬浮按钮",Toast.LENGTH_SHORT).show();
+        showMenuDialog();
+    }
+
+    private void showMenuDialog() {
+        int mCurrentDialogStyle = com.qmuiteam.qmui.R.style.QMUI_Dialog;
+        final String[] items = new String[]{"我捡到了东西", "我弄丢了东西", "我捡到了校园卡"};
+        new QMUIDialog.MenuDialogBuilder(MainActivity.this)
+                .addItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(MainActivity.this, "你选择了 " + items[which], Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                        SearchActivity.startActivity(MainActivity.this,which);
+                    }
+                })
+                .create(mCurrentDialogStyle).show();
+    }
+
+    /*
+    * 切换，简略和具体显示信心两个碎片
+    * */
+    public static void show_brife(){
+        linearLayout_brife.setVisibility(View.VISIBLE);
+        linearLayout_specific.setVisibility(View.GONE);
+    }
+    public static void show_specific(){
+        linearLayout_brife.setVisibility(View.GONE);
+        linearLayout_specific.setVisibility(View.VISIBLE);
+    }
+
 }
 
 

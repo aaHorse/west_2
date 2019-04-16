@@ -1,9 +1,9 @@
 <com.example.zexiger.myapplication.widget.DragLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drag_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/head_background"
-    >
+    android:background="@mipmap/head_background">
     <!--1.底部功能(左侧侧滑功能布局)-->
     <include layout="@layout/left_layout"/>
     <!--2.上层主界面View  main view布局-->
@@ -14,6 +14,7 @@
         android:background="#FFFFFF"
         >
         <LinearLayout
+            android:id="@+id/line_4"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -47,17 +48,39 @@
                         android:background="@color/app_color_blue"
                         />
                 </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/line_3"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    android:layout_height="match_parent"
                     android:layout_below="@id/line_2"
                     >
-                    <!--加入碎片-->
-                </LinearLayout>
-            </RelativeLayout>
+                    <LinearLayout
+                        android:id="@+id/line_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        >
+                        <!--加入碎片-->
+                    </LinearLayout>
 
+                    <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/fab"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:layout_gravity="bottom|end"
+                        android:src="@drawable/ic_add_black_24dp"
+                        android:background="#ffffff"
+                        app:elevation="8dp"/>
+                </FrameLayout>
+            </RelativeLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/line_5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone"
+            >
         </LinearLayout>
     </com.example.zexiger.myapplication.widget.CustomRelativeLayout>
 </com.example.zexiger.myapplication.widget.DragLayout>

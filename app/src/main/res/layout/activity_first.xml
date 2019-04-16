@@ -57,11 +57,29 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/ban_shadow"/>
-        <fragment
-            android:id="@+id/fragment"
+        <LinearLayout
+            android:id="@+id/line_4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <fragment
+                android:id="@+id/fragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:name="com.example.zexiger.myapplication.fragment.QQLogin"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/line_5"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:name="com.example.zexiger.myapplication.fragment.QQLogin"
-            />
+            android:visibility="gone"
+            >
+            <fragment
+                android:id="@+id/fragment_2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:name="com.example.zexiger.myapplication.fragment.Fragment_number"
+                />
+        </LinearLayout>
     </FrameLayout>
 </FrameLayout>
