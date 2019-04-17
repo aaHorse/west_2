@@ -20,7 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.zexiger.myapplication.R;
-import com.example.zexiger.myapplication.activity.MainActivity;
+import com.example.zexiger.myapplication.activity.SpecificActivity;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 
 import java.lang.reflect.Field;
@@ -30,7 +30,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class Fragment_specific extends Fragment {
-    private MainActivity activity;
+    private SpecificActivity activity;
     private Context context;
     @BindView(R.id.bar_layout) ViewGroup linear_bar;
 
@@ -58,22 +58,19 @@ public class Fragment_specific extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_specific,container,false);
-        activity=(MainActivity) getActivity();
+        activity=(SpecificActivity) getActivity();
         context=getContext();
         ButterKnife.bind(this,view);
         setStatusBar();
-        Bundle bundle=getArguments();
-        String str=bundle.getString("number");
         return view;
     }
 
     @OnClick(R.id.top_bar_icon)void back_button(){
         Toast.makeText(context,"你想返回！",Toast.LENGTH_SHORT).show();
-        activity.show_brife();
     }
     @OnClick(R.id.address)void button_address(){
         Toast.makeText(context,"你想查看详细地址！",Toast.LENGTH_SHORT).show();
-        FragmentTransaction transaction=MainActivity.fragmentManager.beginTransaction();
+        FragmentTransaction transaction=SpecificActivity.fragmentManager.beginTransaction();
         Fragment fragment=new Fragment_address_2();
         transaction.replace(R.id.line_8,fragment);
         transaction.commit();

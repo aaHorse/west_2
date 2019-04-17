@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.zexiger.myapplication.R;
 import com.example.zexiger.myapplication.activity.MainActivity;
+import com.example.zexiger.myapplication.activity.SpecificActivity;
 import com.example.zexiger.myapplication.adapter.ItemMainAdapter;
 import com.example.zexiger.myapplication.entity.Item_main;
 import com.example.zexiger.myapplication.http_util.HttpCallbackListener;
@@ -35,6 +36,50 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class Fragment_main_right extends Fragment {
+    /*
+    * 参数str用于识别是触发哪一个跳过来的
+    * */
+    public static void startFragment(String str){
+        FragmentTransaction transaction=MainActivity.fragmentManager.beginTransaction();
+        switch(str){
+            case "找失主":
+                Fragment fragment=new Fragment_main_right();
+                Bundle bundle=new Bundle();
+                bundle.putString("flag","找失主");
+                fragment.setArguments(bundle);
+                transaction.replace(R.id.line_3,fragment);
+                transaction.commit();
+                break;
+            case "找失物":
+                Fragment fragment_2=new Fragment_main_right();
+                Bundle bundle_2=new Bundle();
+                bundle_2.putString("flag","找失物");
+                fragment_2.setArguments(bundle_2);
+                transaction.replace(R.id.line_3,fragment_2);
+                transaction.commit();
+                break;
+            case "搜索":
+                Fragment fragment_3=new Fragment_main_right();
+                Bundle bundle_3=new Bundle();
+                bundle_3.putString("flag","搜索");
+                fragment_3.setArguments(bundle_3);
+                transaction.replace(R.id.line_3,fragment_3);
+                transaction.commit();
+                break;
+            case "我的发布":
+                Fragment fragment_4=new Fragment_main_right();
+                Bundle bundle_4=new Bundle();
+                bundle_4.putString("flag","我的发布");
+                fragment_4.setArguments(bundle_4);
+                transaction.replace(R.id.line_3,fragment_4);
+                transaction.commit();
+                break;
+                default:
+                    Log.d("ttttt","碎片的跳转没有匹配");
+        }
+    }
+
+
     private MainActivity activity;
     private Context context;
     private List<Item_main>lists=new ArrayList<>();
@@ -109,14 +154,15 @@ public class Fragment_main_right extends Fragment {
             @Override
             public void onItemClick(View itemView, int position) {
                 //打开具体显示的界面
-                FragmentTransaction transaction=MainActivity.fragmentManager.beginTransaction();
+/*                FragmentTransaction transaction=MainActivity.fragmentManager.beginTransaction();
                 Bundle bundle=new Bundle();
                 bundle.putString("number","信息对应的唯一id");
                 Fragment fragment=new Fragment_specific();
                 fragment.setArguments(bundle);
                 transaction.replace(R.id.line_5,fragment);
-                transaction.commit();
-                activity.show_specific();
+                transaction.commit();*/
+                //activity.show_specific();
+                SpecificActivity.startActivity(context,"显示具体信息");
             }
         });
         swipeRecyclerView.setAdapter(adapter);

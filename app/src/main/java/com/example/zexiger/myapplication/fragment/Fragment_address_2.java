@@ -25,7 +25,7 @@ import com.amap.api.maps2d.model.LatLng;
 import com.amap.api.maps2d.model.MarkerOptions;
 import com.amap.api.services.core.LatLonPoint;
 import com.example.zexiger.myapplication.R;
-import com.example.zexiger.myapplication.activity.MainActivity;
+import com.example.zexiger.myapplication.activity.SpecificActivity;
 import com.example.zexiger.myapplication.base.MyApplication;
 
 
@@ -33,7 +33,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class Fragment_address_2 extends Fragment {
-    private MainActivity activity;
+    private SpecificActivity activity;
     private Context context;
 
     @BindView(R.id.map)MapView mapView;
@@ -77,10 +77,10 @@ public class Fragment_address_2 extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_address_2, container, false);
         ButterKnife.bind(this,view);
-        activity=(MainActivity) getActivity();
+        activity=(SpecificActivity) getActivity();
         context=getContext();
 
-        mapView.onCreate(MainActivity.bundle);
+        mapView.onCreate(SpecificActivity.bundle);
         aMap=mapView.getMap();
         dingwei();
 

@@ -75,7 +75,6 @@ public class SearchActivity extends AppCompatActivity {
 
     public static Bitmap bit;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -331,3 +330,8 @@ public class SearchActivity extends AppCompatActivity {
     }
 
 }
+
+
+/*
+* File file = new File(Environment.getExternalStorageDirectory()+"//liliyuan//temp.jpg");
+* */

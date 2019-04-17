@@ -64,29 +64,24 @@ public class Fragment_sousuo extends Fragment {
     * 电子产品
     * */
     @OnClick(R.id.button_11)void button_11(){
-        FragmentTransaction transaction=MainActivity.fragmentManager.beginTransaction();
-        Fragment fragment=new Fragment_main_right();
-        Bundle bundle=new Bundle();
-        bundle.putString("flag","123");
-        fragment.setArguments(bundle);
-        transaction.replace(R.id.line_33,fragment);
-        transaction.commit();
+        Fragment_main_right.startFragment("搜索");
         relativeLayout_2.setVisibility(View.GONE);
         relativeLayout_3.setVisibility(View.VISIBLE);
     }
     @OnClick(R.id.button_12)void button_12(){
-        FragmentTransaction transaction=MainActivity.fragmentManager.beginTransaction();
-        Fragment fragment=new Fragment_cs();
-        transaction.replace(R.id.line_33,fragment);
-        transaction.commit();
+        Fragment_main_right.startFragment("搜索");
         relativeLayout_2.setVisibility(View.GONE);
         relativeLayout_3.setVisibility(View.VISIBLE);
     }
     @OnClick(R.id.button_13)void button_13(){
-
+        Fragment_main_right.startFragment("搜索");
+        relativeLayout_2.setVisibility(View.GONE);
+        relativeLayout_3.setVisibility(View.VISIBLE);
     }
     @OnClick(R.id.button_14)void button_14(){
-
+        Fragment_main_right.startFragment("搜索");
+        relativeLayout_2.setVisibility(View.GONE);
+        relativeLayout_3.setVisibility(View.VISIBLE);
     }
 
 

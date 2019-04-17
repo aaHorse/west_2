@@ -91,14 +91,14 @@ public class HttpURL {
             // 上传一张图片
 /*            FileInputStream file = new FileInputStream(Environment.getExternalStorageDirectory().getPath()
                     + "zxing_image.png");*/
-/*            FileInputStream file = new FileInputStream("../res/drawable/picture.jpg");
+            FileInputStream file = new FileInputStream(Environment.getExternalStorageDirectory()+"//liliyuan//temp.jpg");
             OutputStream os = connection.getOutputStream();
             int count = 0;
             while((count=file.read()) != -1){
                 os.write(count);
             }
             os.flush();
-            os.close();*/
+            os.close();
 
     /*        // 获取返回数据
             if(connection.getResponseCode() == 1000){

@@ -182,13 +182,7 @@ public class MainActivity extends BaseActivity implements DefineView {
     }
     @Override
     public void bindData() {
-        Fragment fragment=new Fragment_main_right();
-        Bundle bundle=new Bundle();
-        bundle.putString("flag","找失主");
-        fragment.setArguments(bundle);
-        transaction=fragmentManager.beginTransaction();
-        transaction.replace(R.id.line_3,fragment);
-        transaction.commit();
+        Fragment_main_right.startFragment("找失主");
     }
 
     /*
@@ -228,7 +222,26 @@ public class MainActivity extends BaseActivity implements DefineView {
         swipeRecyclerView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int position) {
-                Toast.makeText(MainActivity.this,"你点击了"+position,Toast.LENGTH_SHORT).show();
+                switch (position){
+                    case 0:break;
+                    case 1:
+                        Fragment_main_right.startFragment("我的发布");
+                        break;
+                    case 2:
+                        Intent intent=new Intent(MainActivity.this,Cs.class);
+                        startActivity(intent);
+                        break;
+                    case 3:
+                        Intent intent2=new Intent(MainActivity.this,Cs.class);
+                        startActivity(intent2);
+                        break;
+                    case 4:
+                        Intent intent3=new Intent(MainActivity.this,Cs.class);
+                        startActivity(intent3);
+                        break;
+                    default:
+                        Log.d("ttttt","左边的item无法匹配");
+                }
             }
         });
         /*
@@ -248,32 +261,18 @@ public class MainActivity extends BaseActivity implements DefineView {
     }
 
     @OnClick(R.id.button_2)void button_1(){
-        Toast.makeText(MainActivity.this,"点击了1",Toast.LENGTH_SHORT).show();
         findViewById(R.id.button_2).setBackgroundColor(Color.parseColor("#00A8bb"));
         findViewById(R.id.button_3).setBackgroundColor(Color.parseColor("#00A8E1"));
-        Fragment fragment=new Fragment_main_right();
-        Bundle bundle=new Bundle();
-        bundle.putString("flag","找失主");
-        fragment.setArguments(bundle);
-        transaction=fragmentManager.beginTransaction();
-        transaction.replace(R.id.line_3,fragment);
-        transaction.commit();
+        Fragment_main_right.startFragment("找失主");
     }
     @OnClick(R.id.button_3)void button_2(){
-        Toast.makeText(MainActivity.this,"点击了2",Toast.LENGTH_SHORT).show();
         findViewById(R.id.button_2).setBackgroundColor(Color.parseColor("#00A8E1"));
         findViewById(R.id.button_3).setBackgroundColor(Color.parseColor("#00A8bb"));
-        Fragment fragment=new Fragment_main_right();
-        Bundle bundle=new Bundle();
-        bundle.putString("flag","找失物");
-        fragment.setArguments(bundle);
-        transaction=fragmentManager.beginTransaction();
-        transaction.replace(R.id.line_3,fragment);
-        transaction.commit();
+        Fragment_main_right.startFragment("找失物");
     }
 
     @OnClick(R.id.fab)void fab(){
-        Toast.makeText(MainActivity.this,"点击了悬浮按钮",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(MainActivity.this,"点击了悬浮按钮",Toast.LENGTH_SHORT).show();
         showMenuDialog();
     }
     @OnClick(R.id.top_bar_search_btn)void button_sousuo(){

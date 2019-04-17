@@ -22,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -148,7 +149,7 @@ public class Fragment_search extends Fragment {
     * */
     @OnClick(R.id.pic)void button_pic(){
         activity.get_pic();
-        File file = new File(Environment.getExternalStorageDirectory()+"//liliyuan//temp.jpg");
+
         /*
         * 进行上传图片操作
         * */
