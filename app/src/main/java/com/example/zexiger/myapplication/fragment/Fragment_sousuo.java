@@ -59,7 +59,11 @@ public class Fragment_sousuo extends Fragment {
         Toast.makeText(context,"你想返回！",Toast.LENGTH_SHORT).show();
         activity.show_brife();
     }
-/*    @OnClick(R.id.button)void button(){
+
+    /*
+    * 电子产品
+    * */
+    @OnClick(R.id.button_11)void button_11(){
         FragmentTransaction transaction=MainActivity.fragmentManager.beginTransaction();
         Fragment fragment=new Fragment_main_right();
         Bundle bundle=new Bundle();
@@ -69,8 +73,21 @@ public class Fragment_sousuo extends Fragment {
         transaction.commit();
         relativeLayout_2.setVisibility(View.GONE);
         relativeLayout_3.setVisibility(View.VISIBLE);
-        //linear_bar.setVisibility(View.GONE);
-    }*/
+    }
+    @OnClick(R.id.button_12)void button_12(){
+        FragmentTransaction transaction=MainActivity.fragmentManager.beginTransaction();
+        Fragment fragment=new Fragment_cs();
+        transaction.replace(R.id.line_33,fragment);
+        transaction.commit();
+        relativeLayout_2.setVisibility(View.GONE);
+        relativeLayout_3.setVisibility(View.VISIBLE);
+    }
+    @OnClick(R.id.button_13)void button_13(){
+
+    }
+    @OnClick(R.id.button_14)void button_14(){
+
+    }
 
 
 

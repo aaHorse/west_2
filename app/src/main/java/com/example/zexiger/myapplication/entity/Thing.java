@@ -4,17 +4,51 @@ import java.util.List;
 
 public class Thing {
 
-    private List<ListBean> list;
+    /**
+     * status : 200
+     * msg : OK
+     * data : [{"id":1,"name":"上帝的骰子","adress":"再能掷出七点的地方","info":"上帝从来不会掷的骰子","type":"橙色装备","image":"http://192.168.43.61:8080/img/1.png","date":"0000-0-0","phone":"123456","isfound":1,"isexist":1},{"id":2,"name":"牛顿的棺材板","adress":"说不清楚的地方","info":"经常盖不住","type":"极品装备","image":"http://192.168.43.61:8080/img/2.jpg","date":"0000-0-0","phone":"666666","isfound":0,"isexist":1}]
+     * ok : null
+     */
 
-    public List<ListBean> getList() {
-        return list;
+    private int status;
+    private String msg;
+    private Object ok;
+    private List<DataBean> data;
+
+    public int getStatus() {
+        return status;
     }
 
-    public void setList(List<ListBean> list) {
-        this.list = list;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
-    public static class ListBean {
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public Object getOk() {
+        return ok;
+    }
+
+    public void setOk(Object ok) {
+        this.ok = ok;
+    }
+
+    public List<DataBean> getData() {
+        return data;
+    }
+
+    public void setData(List<DataBean> data) {
+        this.data = data;
+    }
+
+    public static class DataBean {
         /**
          * id : 1
          * name : 上帝的骰子

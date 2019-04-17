@@ -217,9 +217,11 @@ public class MainActivity extends BaseActivity implements DefineView {
     }
 
     private void init_left(){
-        lists_left.add(new LeftItemMenu(R.drawable.icon_xinxi,"账号信息"));
-        lists_left.add(new LeftItemMenu(R.drawable.icon_shezhi,"设置"));
-        lists_left.add(new LeftItemMenu(R.drawable.icon_fankui,"反馈"));
+        lists_left.add(new LeftItemMenu(R.drawable.icon_shoucang,"账号信息"));
+        lists_left.add(new LeftItemMenu(R.drawable.icon_shoucang,"我的发布"));
+        lists_left.add(new LeftItemMenu(R.drawable.icon_shoucang,"意见反馈"));
+        lists_left.add(new LeftItemMenu(R.drawable.icon_shoucang,"关于我们"));
+        lists_left.add(new LeftItemMenu(R.drawable.icon_shoucang,"退出登录"));
         LeftItemAdapter adapter=new LeftItemAdapter(lists_left);
         LinearLayoutManager layoutManager=new LinearLayoutManager(this);
         swipeRecyclerView.setLayoutManager(layoutManager);

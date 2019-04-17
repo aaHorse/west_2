@@ -19,6 +19,8 @@ import com.example.zexiger.myapplication.R;
 import com.example.zexiger.myapplication.activity.MainActivity;
 import com.example.zexiger.myapplication.adapter.ItemMainAdapter;
 import com.example.zexiger.myapplication.entity.Item_main;
+import com.example.zexiger.myapplication.http_util.HttpCallbackListener;
+import com.example.zexiger.myapplication.http_util.HttpURL;
 import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIDefaultRefreshOffsetCalculator;
 import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout;
 import com.yanzhenjie.recyclerview.OnItemClickListener;
@@ -68,6 +70,27 @@ public class Fragment_main_right extends Fragment {
     * 初始化list
     * */
     private void init_list(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                /*
+                * 查询全部
+                * */
+                String address="";
+                HttpURL.sendHttpRequest(address, new HttpCallbackListener() {
+                    @Override
+                    public void onFinish(String response) {
+
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+
+                    }
+                });
+            }
+        }).start();
+
         for(int i=0;i<20;i++){
             Item_main item_main=new Item_main();
             item_main.setStr(""+i);
