@@ -3,6 +3,7 @@ package com.example.zexiger.myapplication.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,16 +23,22 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.zexiger.myapplication.R;
+import com.example.zexiger.myapplication.activity.MainActivity;
 import com.example.zexiger.myapplication.activity.SpecificActivity;
 import com.example.zexiger.myapplication.base.MyApplication;
 import com.example.zexiger.myapplication.entity.Thing;
+import com.example.zexiger.myapplication.http_util.HttpOK;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class Fragment_specific extends Fragment {
     private SpecificActivity activity;
@@ -56,6 +64,7 @@ public class Fragment_specific extends Fragment {
     * 标记东西是否已经找到
     * */
     private int flag;
+    private int id;
 
 
 
@@ -71,6 +80,7 @@ public class Fragment_specific extends Fragment {
         bean= (Thing.DataBean) bundle.getSerializable("flag");
         setStatusBar();
         init();
+        xiugai();
         return view;
     }
 
@@ -109,12 +119,18 @@ public class Fragment_specific extends Fragment {
         }else{
             //维持原状
         }
+        id=bean.getId();
     }
 
 
     @OnClick(R.id.top_bar_icon)void back_button(){
         Toast.makeText(context,"你想返回！",Toast.LENGTH_SHORT).show();
+        Intent intent=new Intent(context,MainActivity.class);
+        context.startActivity(intent);
     }
+
+
+
     @OnClick(R.id.address)void button_address(){
         Toast.makeText(context,"你想查看详细地址！",Toast.LENGTH_SHORT).show();
         FragmentTransaction transaction=SpecificActivity.fragmentManager.beginTransaction();
@@ -128,9 +144,13 @@ public class Fragment_specific extends Fragment {
         linearLayout.setVisibility(View.VISIBLE);
         linear_bar.setVisibility(View.GONE);
     }
+
     @OnClick(R.id.xiugai)void button_xiugai(){
         Toast.makeText(context,"你想标记信息！",Toast.LENGTH_SHORT).show();
         flag=0;
+        /*
+        * 打开选择菜单进行标记
+        * */
         showSingleChoiceDialog(flag);
     }
 
@@ -164,10 +184,32 @@ public class Fragment_specific extends Fragment {
         if (flag==0){
             isfound.setText("已找到");
             linearLayout_2.setBackgroundColor(Color.parseColor("#4EEE94"));
+            funcf_isexits(1+"");
         }else{
             isfound.setText("未找到");
             linearLayout_2.setBackgroundColor(Color.parseColor("#FF8C00"));
+            funcf_isexits(0+"");
         }
+    }
+
+    private void funcf_isexits(final String exist){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String address="http://192.168.43.61:8080/api/append/isexist";
+                HttpOK.func_xiugai_2(address, id + "",exist ,new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        Log.d("ttttt","修改问题是否解决失败");
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        Log.d("ttttt","修改问题是否解决成功");
+                    }
+                });
+            }
+        }).start();
     }
 
 
@@ -207,4 +249,28 @@ public class Fragment_specific extends Fragment {
     }
 
 
+    /*
+     * 修改浏览次数
+     * */
+    private void xiugai(){
+
+        final String id=""+bean.getId();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String address="http://192.168.43.61:8080/api/append/visits";
+                HttpOK.func_xiugai(address,id, new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        Log.d("ttttt","修改浏览次数失败");
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        Log.d("ttttt","成功修改浏览次数");
+                    }
+                });
+            }
+        }).start();
+    }
 }

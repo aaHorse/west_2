@@ -78,6 +78,7 @@ public class Thing {
         * */
         private String qq_name;
         private String qq_image;
+        private int visits;
 
 
         public int getId() {
@@ -176,5 +177,12 @@ public class Thing {
             this.qq_image = qq_image;
         }
 
+        public int getVisits() {
+            return visits;
+        }
+
+        public void setVisits(int visits) {
+            this.visits = visits;
+        }
     }
 }

@@ -86,6 +86,7 @@ public class ItemMainAdapter extends RecyclerView.Adapter<ItemMainAdapter.ViewHo
         type.setText(item_main.getType());
         //
         info.setText(item_main.getInfo());
+        see.setText("浏览"+item_main.getVisits());
     }
 
     @Override

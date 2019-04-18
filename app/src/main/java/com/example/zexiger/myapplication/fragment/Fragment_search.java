@@ -113,7 +113,7 @@ public class Fragment_search extends Fragment {
         * 1：弄丢东西
         * 2：捡到校园卡
         * */
-        int n=bundle.getInt("flag");
+        n=bundle.getInt("flag");
         init_title(n);
         /*
         * 做一个时间戳

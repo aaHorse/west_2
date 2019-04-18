@@ -284,10 +284,16 @@ public class MainActivity extends BaseActivity implements DefineView {
         Fragment_main_right.startFragment("找失物");
     }
 
+    /*
+    * 悬浮按钮
+    * */
     @OnClick(R.id.fab)void fab(){
         //Toast.makeText(MainActivity.this,"点击了悬浮按钮",Toast.LENGTH_SHORT).show();
         showMenuDialog();
     }
+    /*
+    * 搜索按钮
+    * */
     @OnClick(R.id.top_bar_search_btn)void button_sousuo(){
         FragmentTransaction transaction=fragmentManager.beginTransaction();
         Fragment fragment=new Fragment_sousuo();
@@ -321,10 +327,6 @@ public class MainActivity extends BaseActivity implements DefineView {
     public static void show_specific(){
         linearLayout_brife.setVisibility(View.GONE);
         linearLayout_specific.setVisibility(View.VISIBLE);
-    }
-    public static void show_my(){
-        linearLayout_brife.setVisibility(View.GONE);
-        linearLayout_my.setVisibility(View.VISIBLE);
     }
 
     private void showMessageNegativeDialog() {

@@ -65,23 +65,27 @@ public class Fragment_sousuo extends Fragment {
     * */
     @OnClick(R.id.button_11)void button_11(){
         Fragment_main_right.startFragment("电子产品");
-        relativeLayout_2.setVisibility(View.GONE);
-        relativeLayout_3.setVisibility(View.VISIBLE);
+        activity.show_brife();
+/*        relativeLayout_2.setVisibility(View.GONE);
+        relativeLayout_3.setVisibility(View.VISIBLE);*/
     }
     @OnClick(R.id.button_12)void button_12(){
         Fragment_main_right.startFragment("衣物");
-        relativeLayout_2.setVisibility(View.GONE);
-        relativeLayout_3.setVisibility(View.VISIBLE);
+        activity.show_brife();
+/*        relativeLayout_2.setVisibility(View.GONE);
+        relativeLayout_3.setVisibility(View.VISIBLE);*/
     }
     @OnClick(R.id.button_13)void button_13(){
         Fragment_main_right.startFragment("其他");
-        relativeLayout_2.setVisibility(View.GONE);
-        relativeLayout_3.setVisibility(View.VISIBLE);
+        activity.show_brife();
+/*        relativeLayout_2.setVisibility(View.GONE);
+        relativeLayout_3.setVisibility(View.VISIBLE);*/
     }
     @OnClick(R.id.button_14)void button_14(){
         Fragment_main_right.startFragment("校园卡");
-        relativeLayout_2.setVisibility(View.GONE);
-        relativeLayout_3.setVisibility(View.VISIBLE);
+        activity.show_brife();
+/*        relativeLayout_2.setVisibility(View.GONE);
+        relativeLayout_3.setVisibility(View.VISIBLE);*/
     }
 
 

@@ -29,6 +29,7 @@ public class Data {
      * */
     private String qq_name;
     private String qq_image;
+    private int visits;
 
 
     /*
@@ -121,5 +122,13 @@ public class Data {
 
     public void setQq_image(String qq_image) {
         this.qq_image = qq_image;
+    }
+
+    public int getVisits() {
+        return visits;
+    }
+
+    public void setVisits(int visits) {
+        this.visits = visits;
     }
 }

@@ -80,8 +80,8 @@ public class HttpOK {
     * post异步
     * */
     public static void postDataWithParame(String address,String json_str,Callback callback) {
-        Gson gson = new Gson();
-        Object res = gson.fromJson(json_str,Thing.DataBean.class);
+/*        Gson gson = new Gson();
+        Object res = gson.fromJson(json_str,Thing.DataBean.class);*/
 
         OkHttpClient client = new OkHttpClient();//创建OkHttpClient对象。
         FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
@@ -133,5 +133,34 @@ public class HttpOK {
         client.newCall(request).enqueue(callback);
     }
 
+
+    /*
+    * post请求，修改对应id的浏览次数
+    * */
+    public static void func_xiugai(String address,String id,Callback callback) {
+        OkHttpClient client = new OkHttpClient();//创建OkHttpClient对象。
+        FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
+        formBody.add("id",id);//传递键值对参数
+        Request request = new Request.Builder()//创建Request 对象。
+                .url(address)
+                .post(formBody.build())//传递请求体
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+
+    /*
+    * 修改是否解决
+    * */
+    public static void func_xiugai_2(String address,String id,String exist,Callback callback) {
+        OkHttpClient client = new OkHttpClient();//创建OkHttpClient对象。
+        FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
+        formBody.add("id",id);//传递键值对参数
+        formBody.add("exist",exist);
+        Request request = new Request.Builder()//创建Request 对象。
+                .url(address)
+                .post(formBody.build())//传递请求体
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
 
 }
