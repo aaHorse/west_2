@@ -15,21 +15,27 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.zexiger.myapplication.R;
 import com.example.zexiger.myapplication.adapter.LeftItemAdapter;
+import com.example.zexiger.myapplication.base.ActivityCollector;
 import com.example.zexiger.myapplication.base.BaseActivity;
 import com.example.zexiger.myapplication.base.DefineView;
+import com.example.zexiger.myapplication.base.MyApplication;
+import com.example.zexiger.myapplication.db.FlagFirst;
 import com.example.zexiger.myapplication.db.QQ_messege;
 import com.example.zexiger.myapplication.entity.LeftItemMenu;
 import com.example.zexiger.myapplication.fragment.Fragment_main_right;
 import com.example.zexiger.myapplication.fragment.Fragment_sousuo;
+import com.example.zexiger.myapplication.fragment.QQLogin;
 import com.example.zexiger.myapplication.widget.DragLayout;
 import com.nineoldandroids.view.ViewHelper;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.yanzhenjie.recyclerview.OnItemClickListener;
 import com.yanzhenjie.recyclerview.SwipeRecyclerView;
 
@@ -91,6 +97,8 @@ public class MainActivity extends BaseActivity implements DefineView {
     private static LinearLayout linearLayout_brife;
     private static LinearLayout linearLayout_specific;
 
+    private static RelativeLayout linearLayout_my;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +106,7 @@ public class MainActivity extends BaseActivity implements DefineView {
         ButterKnife.bind(this);
         linearLayout_brife=(LinearLayout)findViewById(R.id.line_4);
         linearLayout_specific=(LinearLayout)findViewById(R.id.line_5);
+        linearLayout_my=(RelativeLayout)findViewById(R.id.line_my);
         fragmentManager=getSupportFragmentManager();
         bundle=savedInstanceState;
         Log.d("ttttt",sHA1(MainActivity.this));
@@ -225,6 +234,7 @@ public class MainActivity extends BaseActivity implements DefineView {
                 switch (position){
                     case 0:break;
                     case 1:
+                        drag_layout.close();
                         Fragment_main_right.startFragment("我的发布");
                         break;
                     case 2:
@@ -236,8 +246,11 @@ public class MainActivity extends BaseActivity implements DefineView {
                         startActivity(intent2);
                         break;
                     case 4:
-                        Intent intent3=new Intent(MainActivity.this,Cs.class);
-                        startActivity(intent3);
+                        drag_layout.close();
+                        showMessageNegativeDialog();
+
+/*                        Intent intent3=new Intent(MainActivity.this,Cs.class);
+                        startActivity(intent3);*/
                         break;
                     default:
                         Log.d("ttttt","左边的item无法匹配");
@@ -308,6 +321,38 @@ public class MainActivity extends BaseActivity implements DefineView {
     public static void show_specific(){
         linearLayout_brife.setVisibility(View.GONE);
         linearLayout_specific.setVisibility(View.VISIBLE);
+    }
+    public static void show_my(){
+        linearLayout_brife.setVisibility(View.GONE);
+        linearLayout_my.setVisibility(View.VISIBLE);
+    }
+
+    private void showMessageNegativeDialog() {
+        new QMUIDialog.MessageDialogBuilder(MainActivity.this)
+                .setTitle("退出登录")
+                .setMessage("确定要退出登录吗？")
+                .addAction("取消", new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        dialog.dismiss();
+                    }
+                })
+                .addAction(0, "退出", QMUIDialogAction.ACTION_PROP_NEGATIVE, new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        FlagFirst obj=new FlagFirst();
+                        obj.setStr("清空登录");
+                        obj.updateAll("str=?","已经登录过了");
+                        /*
+                         * 注销QQ的第三方登录
+                         * */
+                        QQLogin.mTencent.logout(MyApplication.getContext());
+                        Toast.makeText(MainActivity.this, "退出登录成功", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                        ActivityCollector.finishAll();
+                    }
+                })
+                .create(com.qmuiteam.qmui.R.style.QMUI_Dialog).show();
     }
 
 }

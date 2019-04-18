@@ -8,14 +8,20 @@
         android:layout_height="match_parent"
         android:background="?attr/qmui_config_color_background"
         android:fitsSystemWindows="true">
-        <com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout
-            android:id="@+id/main"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <com.yanzhenjie.recyclerview.SwipeRecyclerView
-                android:id="@+id/rv"
+
+            <com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout
+                android:id="@+id/main"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout>
+                android:layout_height="match_parent">
+                <ezy.ui.layout.LoadingLayout
+                    android:id="@+id/loading"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <com.yanzhenjie.recyclerview.SwipeRecyclerView
+                        android:id="@+id/rv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </ezy.ui.layout.LoadingLayout>
+            </com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout>
     </FrameLayout>
 </com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>

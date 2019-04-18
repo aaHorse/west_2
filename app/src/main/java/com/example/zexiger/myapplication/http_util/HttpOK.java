@@ -3,6 +3,12 @@ package com.example.zexiger.myapplication.http_util;
 import android.os.Environment;
 import android.util.Log;
 
+import com.example.zexiger.myapplication.entity.Thing;
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -61,52 +67,37 @@ public class HttpOK {
     /*
     * get异步
     * */
-    public static void getDataAsync() {
-        String address="http://192.168.43.61:8080/query/list";
+    public static void getData(String address,okhttp3.Callback callback) {
+        //String address="http://192.168.43.61:8080/query/list";
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(address)
                 .build();
-        client.newCall(request).enqueue(new Callback(){
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Log.d("ttttt","查询全部数据失败");
-            }
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                Log.d("ttttt",response.body().string());
-            }
-        });
+        client.newCall(request).enqueue(callback);
     }
 
     /*
     * post异步
     * */
-    private void postDataWithParame() {
+    public static void postDataWithParame(String address,String json_str,Callback callback) {
+        Gson gson = new Gson();
+        Object res = gson.fromJson(json_str,Thing.DataBean.class);
+
         OkHttpClient client = new OkHttpClient();//创建OkHttpClient对象。
         FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
         formBody.add("username","zhangsan");//传递键值对参数
         Request request = new Request.Builder()//创建Request 对象。
-                .url("http://www.baidu.com")
+                .url(address)
                 .post(formBody.build())//传递请求体
                 .build();
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-
-            }
-        });
+        client.newCall(request).enqueue(callback);
     }
 
     /*
     * post的文件
     * */
-    public static void post_file(){
+    public static void post_file(String address,File file,String date,okhttp3.Callback callback){
+        //"http://192.168.43.61:8080/upload/setFileUpload"
         /*
         *   json : application/json
             xml : application/xml
@@ -115,52 +106,31 @@ public class HttpOK {
             gif : imge/gi
         * */
         OkHttpClient client = new OkHttpClient();
-        File file = new File(Environment.getExternalStorageDirectory()+"//liliyuan//temp.jpg");
+        //File file = new File(Environment.getExternalStorageDirectory()+"//liliyuan//temp.jpg");
         MultipartBody multipartBody =new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
+                .addFormDataPart("date",date)
                 .addFormDataPart("file",file.getName(),RequestBody.create(MediaType.parse("image/jpg"), file))//添加文件
                 .build();
         final Request request = new Request.Builder()
-                .url("http://192.168.43.61:8080/upload/setFileUpload")
+                .url(address)
                 .post(multipartBody)
                 .build();
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Log.d("ttttt","失败了");
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                Log.d("ttttt",response.body().string());
-            }
-        });
-
+        client.newCall(request).enqueue(callback);
     }
 
     /*
      * post的json
      * */
-    public void post_json(){
+    public static void post_json(String address,String json_str,okhttp3.Callback callback){
         OkHttpClient client = new OkHttpClient();//创建OkHttpClient对象。
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");//数据类型为json格式，
-        String jsonStr = "{\"username\":\"lisi\",\"nickname\":\"李四\"}";//json数据.
-        RequestBody body = RequestBody.create(JSON,jsonStr);
+        RequestBody body = RequestBody.create(JSON,json_str);
         Request request = new Request.Builder()
-                .url("http://www.baidu.com")
+                .url(address)
                 .post(body)
                 .build();
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-
-            }
-        });//此处省略回调方法。
+        client.newCall(request).enqueue(callback);
     }
 
 

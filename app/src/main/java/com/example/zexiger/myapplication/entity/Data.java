@@ -5,7 +5,7 @@ public class Data {
     /**
      * id : 1
      * name : 上帝的骰子
-     * adress : 再能掷出七点的地方
+     * address : 再能掷出七点的地方
      * info : 上帝从来不会掷的骰子
      * type : 橙色装备
      * image : http://192.168.43.61:8080/img/1.png
@@ -16,7 +16,7 @@ public class Data {
      */
 
     private String name;
-    private String adress;
+    private String address;
     private String info;
     private String type;
     private String image;
@@ -24,6 +24,11 @@ public class Data {
     private String phone;
     private int isfound;
     private int isexist;
+    /*
+     * QQ昵称和头像地址
+     * */
+    private String qq_name;
+    private String qq_image;
 
 
     /*
@@ -38,12 +43,12 @@ public class Data {
         this.name = name;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String adress) {
+        this.address = adress;
     }
 
     public String getInfo() {
@@ -100,5 +105,21 @@ public class Data {
 
     public void setIsexist(int isexist) {
         this.isexist = isexist;
+    }
+
+    public String getQq_name() {
+        return qq_name;
+    }
+
+    public void setQq_name(String qq_name) {
+        this.qq_name = qq_name;
+    }
+
+    public String getQq_image() {
+        return qq_image;
+    }
+
+    public void setQq_image(String qq_image) {
+        this.qq_image = qq_image;
     }
 }

@@ -19,14 +19,21 @@ import com.example.zexiger.myapplication.R;
 import com.example.zexiger.myapplication.activity.MainActivity;
 import com.example.zexiger.myapplication.activity.SpecificActivity;
 import com.example.zexiger.myapplication.adapter.ItemMainAdapter;
+import com.example.zexiger.myapplication.db.QQ_messege;
 import com.example.zexiger.myapplication.entity.Item_main;
+import com.example.zexiger.myapplication.entity.Thing;
 import com.example.zexiger.myapplication.http_util.HttpCallbackListener;
+import com.example.zexiger.myapplication.http_util.HttpOK;
 import com.example.zexiger.myapplication.http_util.HttpURL;
+import com.google.gson.Gson;
 import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIDefaultRefreshOffsetCalculator;
 import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout;
 import com.yanzhenjie.recyclerview.OnItemClickListener;
 import com.yanzhenjie.recyclerview.SwipeRecyclerView;
 
+import org.litepal.crud.DataSupport;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -34,10 +41,18 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ezy.ui.layout.LoadingLayout;
+import okhttp3.Call;
+import okhttp3.Response;
+
+import static com.example.zexiger.myapplication.activity.MainActivity.show_my;
+import static com.example.zexiger.myapplication.activity.MainActivity.show_specific;
 
 public class Fragment_main_right extends Fragment {
     /*
     * 参数str用于识别是触发哪一个跳过来的
+    * ,
+    * 注意，有一个不是通过这里跳过来的，而是直接在自己的活动里面跳，Search2Activity
     * */
     public static void startFragment(String str){
         FragmentTransaction transaction=MainActivity.fragmentManager.beginTransaction();
@@ -58,20 +73,45 @@ public class Fragment_main_right extends Fragment {
                 transaction.replace(R.id.line_3,fragment_2);
                 transaction.commit();
                 break;
-            case "搜索":
+            case "我的发布":
                 Fragment fragment_3=new Fragment_main_right();
                 Bundle bundle_3=new Bundle();
-                bundle_3.putString("flag","搜索");
+                bundle_3.putString("flag","我的发布");
                 fragment_3.setArguments(bundle_3);
                 transaction.replace(R.id.line_3,fragment_3);
+                show_my();
                 transaction.commit();
                 break;
-            case "我的发布":
-                Fragment fragment_4=new Fragment_main_right();
-                Bundle bundle_4=new Bundle();
-                bundle_4.putString("flag","我的发布");
-                fragment_4.setArguments(bundle_4);
-                transaction.replace(R.id.line_3,fragment_4);
+            case "电子产品":
+                Fragment fragment_4_1=new Fragment_main_right();
+                Bundle bundle_4_1=new Bundle();
+                bundle_4_1.putString("flag","电子产品");
+                fragment_4_1.setArguments(bundle_4_1);
+                transaction.replace(R.id.line_3,fragment_4_1);
+                transaction.commit();
+                break;
+            case "衣物":
+                Fragment fragment_4_2=new Fragment_main_right();
+                Bundle bundle_4_2=new Bundle();
+                bundle_4_2.putString("flag","电子产品");
+                fragment_4_2.setArguments(bundle_4_2);
+                transaction.replace(R.id.line_3,fragment_4_2);
+                transaction.commit();
+                break;
+            case "其他":
+                Fragment fragment_4_3=new Fragment_main_right();
+                Bundle bundle_4_3=new Bundle();
+                bundle_4_3.putString("flag","电子产品");
+                fragment_4_3.setArguments(bundle_4_3);
+                transaction.replace(R.id.line_3,fragment_4_3);
+                transaction.commit();
+                break;
+            case "校园卡":
+                Fragment fragment_4_4=new Fragment_main_right();
+                Bundle bundle_4_4=new Bundle();
+                bundle_4_4.putString("flag","电子产品");
+                fragment_4_4.setArguments(bundle_4_4);
+                transaction.replace(R.id.line_3,fragment_4_4);
                 transaction.commit();
                 break;
                 default:
@@ -80,12 +120,18 @@ public class Fragment_main_right extends Fragment {
     }
 
 
-    private MainActivity activity;
+    private Activity activity;
     private Context context;
-    private List<Item_main>lists=new ArrayList<>();
+    private List<Thing.DataBean>lists=new ArrayList<>();
     @BindView(R.id.main)
     QMUIPullRefreshLayout mPullRefreshLayout;
     private SwipeRecyclerView swipeRecyclerView;
+
+    @BindView(R.id.loading)LoadingLayout loadingLayout;
+
+    /*
+    * 请求类型
+    * */
     private String str;
     private ItemMainAdapter adapter;
 
@@ -105,7 +151,7 @@ public class Fragment_main_right extends Fragment {
         * 初始化
         * 两个的顺序不能够反
         * */
-        init_list();
+        init_list(str);
         init_rv();
         init();
         return view;
@@ -114,33 +160,99 @@ public class Fragment_main_right extends Fragment {
     /*
     * 初始化list
     * */
-    private void init_list(){
+    private void init_list(final String str){
+/*        for(int i=0;i<20;i++){
+            Item_main item_main=new Item_main();
+            item_main.setStr(""+i);
+            lists.add(item_main);
+        }*/
+
+        final String address="http://192.168.43.61:8080/query/list";
         new Thread(new Runnable() {
             @Override
             public void run() {
-                /*
-                * 查询全部
-                * */
-                String address="";
-                HttpURL.sendHttpRequest(address, new HttpCallbackListener() {
+                HttpOK.getData(address, new okhttp3.Callback() {
                     @Override
-                    public void onFinish(String response) {
-
+                    public void onFailure(Call call, IOException e) {
+                        Log.d("ttttt","查询全部信息访问失败");
                     }
 
                     @Override
-                    public void onError(Exception e) {
-
+                    public void onResponse(Call call, Response response) throws IOException {
+                        final Thing thing=new Gson().fromJson(response.body().string(),Thing.class);
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                lists.clear();
+                                List<Thing.DataBean>list_temp=thing.getData();
+                                switch(str) {
+                                    case "找失主":
+                                        for(int i=list_temp.size()-1;i>=0;i--){
+                                            Thing.DataBean bean=list_temp.get(i);
+                                            if(bean.getIsfound()==1){
+                                                lists.add(bean);
+                                            }
+                                        }
+                                        break;
+                                    case "找失物":
+                                        for(int i=list_temp.size()-1;i>=0;i--){
+                                            Thing.DataBean bean=list_temp.get(i);
+                                            if(bean.getIsfound()==0){
+                                                lists.add(bean);
+                                            }
+                                        }
+                                        break;
+                                    case "我的发布":
+                                        List<QQ_messege>list_number=DataSupport.findAll(QQ_messege.class);
+                                        QQ_messege obj=list_number.get(list_number.size()-1);
+                                        for(int i=list_temp.size()-1;i>=0;i--){
+                                            Thing.DataBean bean=list_temp.get(i);
+                                            if(bean.getName().equals(obj.getNumber())){
+                                                lists.add(bean);
+                                            }
+                                        }
+                                        break;
+                                    case "电子产品":
+                                        for(int i=list_temp.size()-1;i>=0;i--){
+                                            Thing.DataBean bean=list_temp.get(i);
+                                            if(bean.getType().equals("电子产品")){
+                                                lists.add(bean);
+                                            }
+                                        }
+                                        break;
+                                    case "衣物":
+                                        for(int i=list_temp.size()-1;i>=0;i--){
+                                            Thing.DataBean bean=list_temp.get(i);
+                                            if(bean.getType().equals("衣物")){
+                                                lists.add(bean);
+                                            }
+                                        }
+                                        break;
+                                    case "其他":
+                                        for(int i=list_temp.size()-1;i>=0;i--){
+                                            Thing.DataBean bean=list_temp.get(i);
+                                            if(bean.getType().equals("其他")){
+                                                lists.add(bean);
+                                            }
+                                        }
+                                        break;
+                                    case "校园卡":
+                                        for(int i=list_temp.size()-1;i>=0;i--){
+                                            Thing.DataBean bean=list_temp.get(i);
+                                            if(bean.getType().equals("校园卡")){
+                                                lists.add(bean);
+                                            }
+                                        }
+                                        break;
+                                    default:
+                                        Log.d("ttttt", "碎片的跳转没有匹配");
+                                }
+                            }
+                        });
                     }
                 });
             }
         }).start();
-
-        for(int i=0;i<20;i++){
-            Item_main item_main=new Item_main();
-            item_main.setStr(""+i);
-            lists.add(item_main);
-        }
     }
 
     /*
@@ -149,20 +261,19 @@ public class Fragment_main_right extends Fragment {
     private void init_rv(){
         LinearLayoutManager layoutManager=new LinearLayoutManager(context);
         adapter=new ItemMainAdapter(lists);
+        if (lists.size()==0){
+            loadingLayout.showEmpty();
+            return ;
+        }
+        loadingLayout.showContent();
         swipeRecyclerView.setLayoutManager(layoutManager);
         swipeRecyclerView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int position) {
-                //打开具体显示的界面
-/*                FragmentTransaction transaction=MainActivity.fragmentManager.beginTransaction();
-                Bundle bundle=new Bundle();
-                bundle.putString("number","信息对应的唯一id");
-                Fragment fragment=new Fragment_specific();
-                fragment.setArguments(bundle);
-                transaction.replace(R.id.line_5,fragment);
-                transaction.commit();*/
-                //activity.show_specific();
-                SpecificActivity.startActivity(context,"显示具体信息");
+                /*
+                * 将物体对应的类传过去
+                * */
+                SpecificActivity.startActivity(context,lists.get(position));
             }
         });
         swipeRecyclerView.setAdapter(adapter);
@@ -200,7 +311,7 @@ public class Fragment_main_right extends Fragment {
     }
 
     private void onDataLoaded() {
-        Collections.shuffle(lists);
+        init_list(str);
         adapter.notifyDataSetChanged();
     }
 }

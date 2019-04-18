@@ -1,18 +1,12 @@
 package com.example.zexiger.myapplication.activity;
 
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.zexiger.myapplication.R;
-import com.example.zexiger.myapplication.http_util.HttpCallbackListener;
 import com.example.zexiger.myapplication.http_util.HttpOK;
-import com.example.zexiger.myapplication.http_util.HttpURL;
-
-import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,13 +23,13 @@ public class Cs extends AppCompatActivity {
     }
 
     @OnClick(R.id.button_1)void button_1(){
-        HttpOK.post_file();
+        //HttpOK.post_file();
     }
     @OnClick(R.id.button_2)void button_2(){
         new Thread(new Runnable() {
             @Override
             public void run() {
-                HttpOK.getDataAsync();
+                //HttpOK.getData();
             }
         }).start();
     }

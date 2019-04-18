@@ -5,22 +5,38 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.zexiger.myapplication.R;
+import com.example.zexiger.myapplication.base.MyApplication;
 import com.example.zexiger.myapplication.entity.Item_main;
+import com.example.zexiger.myapplication.entity.Thing;
 
 import java.io.BufferedReader;
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ItemMainAdapter extends RecyclerView.Adapter<ItemMainAdapter.ViewHolder> {
     private ViewHolder viewHolder;
-    private List<Item_main> lists;
+    private List<Thing.DataBean> lists;
+
+    @BindView(R.id.pic)ImageView pic;//头像
+    @BindView(R.id.name)TextView name;//名字
+    @BindView(R.id.date)TextView date;//时间
+    @BindView(R.id.isfound)TextView isfound;//是否找到了，与数据库的不一样
+    @BindView(R.id.type)TextView type;
+    @BindView(R.id.info)TextView info;
+    @BindView(R.id.see)TextView see;
+    @BindView(R.id.isfound_line)LinearLayout linearLayout;
 
 
-    public ItemMainAdapter(List<Item_main>lists){
+
+    public ItemMainAdapter(List<Thing.DataBean>lists){
         this.lists=lists;
     }
 
@@ -42,7 +58,34 @@ public class ItemMainAdapter extends RecyclerView.Adapter<ItemMainAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        Item_main item_main=(Item_main)lists.get(i);
+        Thing.DataBean item_main=(Thing.DataBean)lists.get(i);
+        //
+        if (false){
+            //如果QQ头像的图片链接存在
+            Glide.with(MyApplication.getContext()).load("http://192.168.43.61:8080/img/1.png").into(pic);
+        }else{
+            //维持默认图片
+        }
+        //
+        if (false){
+            //如果QQ昵称存在，显示
+            name.setText("QQ昵称");
+        }else{
+            //维持原状
+        }
+        //
+        date.setText(item_main.getDate());
+        //
+        if (item_main.getIsexist()==0){
+            //未找到
+            isfound.setText("未找到");
+        }else{
+            isfound.setText("已找到");
+        }
+        //
+        type.setText(item_main.getType());
+        //
+        info.setText(item_main.getInfo());
     }
 
     @Override

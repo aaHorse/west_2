@@ -7,13 +7,11 @@
     tools:context=".activity.SpecificActivity">
 
     <LinearLayout
+        android:id="@+id/line"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <fragment
-            android:id="@+id/fragment"
-            android:name="com.example.zexiger.myapplication.fragment.Fragment_specific"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

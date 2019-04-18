@@ -76,7 +76,8 @@
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.SearchActivity" />
         <activity android:name=".activity.SpecificActivity" />
-        <activity android:name=".activity.Cs"></activity>
+        <activity android:name=".activity.Cs" />
+        <activity android:name=".activity.Search2Activity"></activity>
     </application>
 
 </manifest>

@@ -36,12 +36,15 @@ public class QQLogin extends Fragment {
      * QQ登录
      * */
     private static final String APP_ID = "1108179346";//官方获取的APPID
-    private Tencent mTencent;
+    public static Tencent mTencent;
     public static BaseUiListener mIUiListener;
     private UserInfo mUserInfo;
 
     private FirstActivity activity;
     private Context context;
+
+    public static String nickname;
+    public static String figureurl_qq_1;
 
     @Nullable
     @Override
@@ -129,19 +132,21 @@ public class QQLogin extends Fragment {
                                         }
                                     });
                                     Log.d("ttttt","获取QQ昵称为："+nickname);
+                                    QQLogin.nickname=nickname;
+                                    QQLogin.figureurl_qq_1=figureurl_qq_1;
                                     /*
                                     * 将用户的昵称和头像的网址存到数据库
                                     * */
-                                    QQ_messege obj=new QQ_messege();
+/*                                    QQ_messege obj=new QQ_messege();
                                     obj.setNickname(nickname);
                                     obj.setFigureurl_qq_1(figureurl_qq_1);
-                                    obj.save();
+                                    obj.save();*/
                                     /*
                                     * 修改记录是否为第一次登录的数据库
                                     * */
-                                    FlagFirst flag_first=new FlagFirst();
+/*                                    FlagFirst flag_first=new FlagFirst();
                                     flag_first.setStr("已经登录过了");
-                                    flag_first.save();
+                                    flag_first.save();*/
                                     /*
                                     * 跳转页面
                                     * */

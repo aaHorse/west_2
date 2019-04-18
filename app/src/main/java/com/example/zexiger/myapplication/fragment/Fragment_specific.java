@@ -19,8 +19,11 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.zexiger.myapplication.R;
 import com.example.zexiger.myapplication.activity.SpecificActivity;
+import com.example.zexiger.myapplication.base.MyApplication;
+import com.example.zexiger.myapplication.entity.Thing;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 
 import java.lang.reflect.Field;
@@ -47,6 +50,8 @@ public class Fragment_specific extends Fragment {
     @BindView(R.id.line_9)ScrollView scrollView;
     @BindView(R.id.line_8)LinearLayout linearLayout;
 
+    private Thing.DataBean bean;
+
     /*
     * 标记东西是否已经找到
     * */
@@ -56,14 +61,60 @@ public class Fragment_specific extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_specific,container,false);
         activity=(SpecificActivity) getActivity();
         context=getContext();
         ButterKnife.bind(this,view);
+        Bundle bundle=getArguments();
+        bean= (Thing.DataBean) bundle.getSerializable("flag");
         setStatusBar();
+        init();
         return view;
     }
+
+    private void init(){
+        if(false){
+            //如果头像链接存在
+            //
+            if (false){
+                //如果QQ头像的图片链接存在
+                Glide.with(MyApplication.getContext()).load("http://192.168.43.61:8080/img/1.png").into(imageView);
+            }else{
+                //维持默认图片
+            }
+            //
+            if (false){
+                //如果QQ昵称存在，显示
+                name.setText("QQ昵称");
+            }else{
+                //维持原状
+            }
+            //
+            date.setText(bean.getDate());
+            //
+            if (bean.getIsexist()==0){
+                //未找到
+                isfound.setText("未找到");
+            }else{
+                isfound.setText("已找到");
+            }
+            //
+            type.setText(bean.getType());
+            //
+            info.setText(bean.getInfo());
+            phone.setText(bean.getPhone());
+            //
+            if(false){
+                //图片链接存在
+                Glide.with(MyApplication.getContext()).load("http://192.168.43.61:8080/img/1.png").into(picture);
+            }else{
+                //维持原状
+            }
+        }
+    }
+
 
     @OnClick(R.id.top_bar_icon)void back_button(){
         Toast.makeText(context,"你想返回！",Toast.LENGTH_SHORT).show();
@@ -72,6 +123,9 @@ public class Fragment_specific extends Fragment {
         Toast.makeText(context,"你想查看详细地址！",Toast.LENGTH_SHORT).show();
         FragmentTransaction transaction=SpecificActivity.fragmentManager.beginTransaction();
         Fragment fragment=new Fragment_address_2();
+        Bundle bundle=new Bundle();
+        bundle.putString("flag",bean.getAddress());
+        fragment.setArguments(bundle);
         transaction.replace(R.id.line_8,fragment);
         transaction.commit();
         scrollView.setVisibility(View.GONE);

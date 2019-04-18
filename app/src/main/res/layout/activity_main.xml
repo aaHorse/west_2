@@ -73,6 +73,16 @@
                         app:elevation="8dp"/>
                 </FrameLayout>
             </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/line_my"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone"
+                >
+
+            </RelativeLayout>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/line_5"

@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.zexiger.myapplication.BuildConfig;
 import com.example.zexiger.myapplication.R;
+import com.example.zexiger.myapplication.base.BaseActivity;
 import com.example.zexiger.myapplication.fragment.Fragment_cs;
 import com.example.zexiger.myapplication.fragment.Fragment_search;
 import com.example.zexiger.myapplication.http_util.HttpCallbackListener;
@@ -40,7 +41,7 @@ import java.io.IOException;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends BaseActivity {
     public static void startActivity(Context context,int n){
         Intent intent=new Intent(context,SearchActivity.class);
         intent.putExtra("flag",n);

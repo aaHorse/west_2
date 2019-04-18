@@ -1,162 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.qmuiteam.qmui.widget.QMUIWindowInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <LinearLayout
+        android:id="@+id/bar_layout"
+        android:background="@color/app_color_blue"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <RelativeLayout
+                android:id="@+id/line_search"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_alignParentBottom="true"
+                >
+                <ImageView
+                    android:id="@+id/top_bar_icon"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/qmui_icon_topbar_back"
+                    />
+                <TextView
+                    android:id="@+id/top_bar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="详细信息"
+                    android:layout_centerInParent="true"
+                    android:textSize="20sp"
+                    />
+            </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
 
     <RelativeLayout
-        android:id="@+id/line"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="?attr/qmui_topbar_height"
-        android:background="@color/qmui_config_color_white"
-        android:fitsSystemWindows="true"
-        >
+        android:layout_height="match_parent">
 
-        <com.classichu.lineseditview.LinesEditView
-            android:id="@+id/et_add"
-            app:classic_maxCount="500"
-            app:classic_hintText="描述一下吧"
-            app:classic_contentViewHeight="200dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="20dp"
-            android:outlineAmbientShadowColor="@color/s_btn_blue_bg"
+        <RelativeLayout
+            android:id="@+id/line"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent"
+            android:background="@color/qmui_config_color_white"
+            >
 
-        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-            android:id="@+id/type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="10dp"
-            android:paddingBottom="10dp"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp"
-            android:paddingTop="10dp"
-            android:text="标记类型"
-            app:qmui_isRadiusAdjustBounds="true"
-            android:layout_centerHorizontal="true"
-            />
-        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-            android:id="@+id/address"
-            android:layout_below="@+id/type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="20dp"
-            android:paddingBottom="10dp"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp"
-            android:paddingTop="10dp"
-            android:text="标记地址"
-            app:qmui_isRadiusAdjustBounds="true"
-            android:layout_centerHorizontal="true"
-            />
+            <com.classichu.lineseditview.LinesEditView
+                android:id="@+id/et_add"
+                app:classic_maxCount="500"
+                app:classic_hintText="描述一下吧"
+                app:classic_contentViewHeight="200dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:outlineAmbientShadowColor="@color/s_btn_blue_bg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-            android:id="@+id/pic"
-            android:layout_below="@id/address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="20dp"
-            android:paddingBottom="10dp"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp"
-            android:paddingTop="10dp"
-            android:text="上传照片"
-            app:qmui_isRadiusAdjustBounds="true"
-            android:layout_centerHorizontal="true"
-            />
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                android:id="@+id/type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:paddingTop="10dp"
+                android:text="标记类型"
+                app:qmui_isRadiusAdjustBounds="true"
+                android:layout_centerHorizontal="true"
+                />
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                android:id="@+id/address"
+                android:layout_below="@+id/type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="20dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:paddingTop="10dp"
+                android:text="标记地址"
+                app:qmui_isRadiusAdjustBounds="true"
+                android:layout_centerHorizontal="true"
+                />
 
-        <EditText
-            android:id="@+id/phone"
-            android:layout_below="@id/pic"
-            android:hint="联系方式"
-            android:layout_marginTop="20dp"
-            android:textColor="@color/s_btn_blue_bg"
-            android:textColorHint="@color/s_btn_blue_bg"
-            android:background="@drawable/shape"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"
-            />
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                android:id="@+id/pic"
+                android:layout_below="@id/address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="20dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:paddingTop="10dp"
+                android:text="上传照片"
+                app:qmui_isRadiusAdjustBounds="true"
+                android:layout_centerHorizontal="true"
+                />
 
-        <Button
-            android:id="@+id/fabu"
-            android:layout_below="@+id/phone"
-            android:layout_marginTop="30dp"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:layout_centerInParent="true"
-            android:background="@drawable/sss"
-            android:text="发布信息"
-            android:layout_centerHorizontal="true"
-            />
+            <EditText
+                android:id="@+id/phone"
+                android:layout_below="@id/pic"
+                android:hint="联系方式"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/s_btn_blue_bg"
+                android:textColorHint="@color/s_btn_blue_bg"
+                android:background="@drawable/shape"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                />
+
+            <Button
+                android:id="@+id/fabu"
+                android:layout_below="@+id/phone"
+                android:layout_marginTop="30dp"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/sss"
+                android:text="发布信息"
+                android:layout_centerHorizontal="true"
+                />
 
 
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/line_2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/qmui_topbar_height"
+            android:background="@color/qmui_config_color_white"
+            android:fitsSystemWindows="true"
+            android:visibility="gone"
+            >
+
+            <LinearLayout
+                android:id="@+id/line_3"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                />
+
+
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                android:id="@+id/sure"
+                android:layout_below="@+id/line_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="30dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:paddingTop="10dp"
+                android:text="确定"
+                app:qmui_isRadiusAdjustBounds="true"
+                android:layout_centerHorizontal="true"
+                />
+
+        </RelativeLayout>
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/line_2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="?attr/qmui_topbar_height"
-        android:background="@color/qmui_config_color_white"
-        android:fitsSystemWindows="true"
-        android:visibility="gone"
-        >
-
-        <LinearLayout
-            android:id="@+id/line_3"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="20dp"
-            android:orientation="vertical"
-            />
-
-        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-            android:id="@+id/sure"
-            android:layout_below="@+id/line_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="30dp"
-            android:paddingBottom="10dp"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp"
-            android:paddingTop="10dp"
-            android:text="确定"
-            app:qmui_isRadiusAdjustBounds="true"
-            android:layout_centerHorizontal="true"
-            />
-
-    </RelativeLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <com.qmuiteam.qmui.widget.QMUITopBarLayout
-            android:id="@+id/topbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fitsSystemWindows="true"/>
-        <ImageButton
-            android:id="@+id/imagebutton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="#00000000"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/qmui_icon_topbar_back"
-            />
-    </FrameLayout>
-
-</com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>
+</LinearLayout>
