@@ -75,43 +75,39 @@ public class Fragment_specific extends Fragment {
     }
 
     private void init(){
-        if(false){
-            //如果头像链接存在
+        //
+        if (!bean.getQq_image().isEmpty()){
+            //如果QQ头像的图片链接存在
+            Glide.with(MyApplication.getContext()).load(bean.getQq_image()).into(imageView);
+        }else{
+            //维持默认图片
+        }
+        //
+        if (!bean.getQq_name().isEmpty()){
+            //如果QQ昵称存在，显示
+            name.setText(bean.getQq_name());
+        }else{
+            //维持原状
+        }
+        //
+        date.setText(bean.getDate());
+        //
+        if (bean.getIsexist()==0){
+            //未找到
+            isfound.setText("未找到");
+        }else{
+            isfound.setText("已找到");
+        }
+        //
+        type.setText(bean.getType());
+        //
+        info.setText(bean.getInfo());
             //
-            if (false){
-                //如果QQ头像的图片链接存在
-                Glide.with(MyApplication.getContext()).load("http://192.168.43.61:8080/img/1.png").into(imageView);
-            }else{
-                //维持默认图片
-            }
-            //
-            if (false){
-                //如果QQ昵称存在，显示
-                name.setText("QQ昵称");
-            }else{
-                //维持原状
-            }
-            //
-            date.setText(bean.getDate());
-            //
-            if (bean.getIsexist()==0){
-                //未找到
-                isfound.setText("未找到");
-            }else{
-                isfound.setText("已找到");
-            }
-            //
-            type.setText(bean.getType());
-            //
-            info.setText(bean.getInfo());
-            phone.setText(bean.getPhone());
-            //
-            if(false){
-                //图片链接存在
-                Glide.with(MyApplication.getContext()).load("http://192.168.43.61:8080/img/1.png").into(picture);
-            }else{
-                //维持原状
-            }
+        if(!bean.getImage().isEmpty()){
+            //图片链接存在
+            Glide.with(MyApplication.getContext()).load(bean.getImage()).into(picture);
+        }else{
+            //维持原状
         }
     }
 

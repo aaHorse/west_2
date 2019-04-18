@@ -108,6 +108,11 @@ public class Fragment_search extends Fragment {
         ButterKnife.bind(this,view);
         setStatusBar();
         Bundle bundle=getArguments();
+        /*
+        * 0:捡到东西
+        * 1：弄丢东西
+        * 2：捡到校园卡
+        * */
         int n=bundle.getInt("flag");
         init_title(n);
         /*
@@ -230,7 +235,19 @@ public class Fragment_search extends Fragment {
             String nickname=obj.getNickname();
             String figureurl_qq_1=obj.getFigureurl_qq_1();
             String number=obj.getNumber();
-
+            data.setQq_name(nickname);
+            data.setQq_image(figureurl_qq_1);
+            data.setName(number);
+            //
+            if(n==0||n==2){
+                data.setIsfound(1);
+            }else if(n==1){
+                data.setIsfound(0);
+            }else{
+                Log.d("ttttt","Fragment_search匹配出错了");
+            }
+            //
+            data.setIsexist(0);
 
 
             final String json=gson.toJson(data);
@@ -248,7 +265,6 @@ public class Fragment_search extends Fragment {
                         public void onFailure(Call call, IOException e) {
                             Log.d("ttttt","请求失败");
                         }
-
                         @Override
                         public void onResponse(Call call, final Response response) throws IOException {
                             activity.runOnUiThread(new Runnable() {

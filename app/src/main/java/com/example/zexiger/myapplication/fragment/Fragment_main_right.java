@@ -152,8 +152,6 @@ public class Fragment_main_right extends Fragment {
         * 两个的顺序不能够反
         * */
         init_list(str);
-        init_rv();
-        init();
         return view;
     }
 
@@ -161,11 +159,6 @@ public class Fragment_main_right extends Fragment {
     * 初始化list
     * */
     private void init_list(final String str){
-/*        for(int i=0;i<20;i++){
-            Item_main item_main=new Item_main();
-            item_main.setStr(""+i);
-            lists.add(item_main);
-        }*/
 
         final String address="http://192.168.43.61:8080/query/list";
         new Thread(new Runnable() {
@@ -247,6 +240,8 @@ public class Fragment_main_right extends Fragment {
                                     default:
                                         Log.d("ttttt", "碎片的跳转没有匹配");
                                 }
+                                init_rv();
+                                init();
                             }
                         });
                     }
@@ -300,7 +295,7 @@ public class Fragment_main_right extends Fragment {
                 mPullRefreshLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        onDataLoaded();
+                        func_reflesh();
                         Log.d("ttttt","11131111");
                         Toast.makeText(context,"你点击了刷新",Toast.LENGTH_SHORT).show();
                         mPullRefreshLayout.finishRefresh();
@@ -310,8 +305,96 @@ public class Fragment_main_right extends Fragment {
         });
     }
 
-    private void onDataLoaded() {
-        init_list(str);
-        adapter.notifyDataSetChanged();
+    /*
+    * 刷新
+    * */
+    public void func_reflesh(){
+        final String address="http://192.168.43.61:8080/query/list";
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                HttpOK.getData(address, new okhttp3.Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        Log.d("ttttt","查询全部信息访问失败");
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        final Thing thing=new Gson().fromJson(response.body().string(),Thing.class);
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                lists.clear();
+                                List<Thing.DataBean>list_temp=thing.getData();
+                                switch(str) {
+                                    case "找失主":
+                                        for(int i=list_temp.size()-1;i>=0;i--){
+                                            Thing.DataBean bean=list_temp.get(i);
+                                            if(bean.getIsfound()==1){
+                                                lists.add(bean);
+                                            }
+                                        }
+                                        break;
+                                    case "找失物":
+                                        for(int i=list_temp.size()-1;i>=0;i--){
+                                            Thing.DataBean bean=list_temp.get(i);
+                                            if(bean.getIsfound()==0){
+                                                lists.add(bean);
+                                            }
+                                        }
+                                        break;
+                                    case "我的发布":
+                                        List<QQ_messege>list_number=DataSupport.findAll(QQ_messege.class);
+                                        QQ_messege obj=list_number.get(list_number.size()-1);
+                                        for(int i=list_temp.size()-1;i>=0;i--){
+                                            Thing.DataBean bean=list_temp.get(i);
+                                            if(bean.getName().equals(obj.getNumber())){
+                                                lists.add(bean);
+                                            }
+                                        }
+                                        break;
+                                    case "电子产品":
+                                        for(int i=list_temp.size()-1;i>=0;i--){
+                                            Thing.DataBean bean=list_temp.get(i);
+                                            if(bean.getType().equals("电子产品")){
+                                                lists.add(bean);
+                                            }
+                                        }
+                                        break;
+                                    case "衣物":
+                                        for(int i=list_temp.size()-1;i>=0;i--){
+                                            Thing.DataBean bean=list_temp.get(i);
+                                            if(bean.getType().equals("衣物")){
+                                                lists.add(bean);
+                                            }
+                                        }
+                                        break;
+                                    case "其他":
+                                        for(int i=list_temp.size()-1;i>=0;i--){
+                                            Thing.DataBean bean=list_temp.get(i);
+                                            if(bean.getType().equals("其他")){
+                                                lists.add(bean);
+                                            }
+                                        }
+                                        break;
+                                    case "校园卡":
+                                        for(int i=list_temp.size()-1;i>=0;i--){
+                                            Thing.DataBean bean=list_temp.get(i);
+                                            if(bean.getType().equals("校园卡")){
+                                                lists.add(bean);
+                                            }
+                                        }
+                                        break;
+                                    default:
+                                        Log.d("ttttt", "碎片的跳转没有匹配");
+                                }
+                                adapter.notifyDataSetChanged();
+                            }
+                        });
+                    }
+                });
+            }
+        }).start();
     }
 }

@@ -43,7 +43,6 @@ public class ItemMainAdapter extends RecyclerView.Adapter<ItemMainAdapter.ViewHo
     static class ViewHolder extends RecyclerView.ViewHolder{
         public ViewHolder(View view){
             super(view);
-            ButterKnife.bind(this,view);
         }
     }
 
@@ -52,6 +51,7 @@ public class ItemMainAdapter extends RecyclerView.Adapter<ItemMainAdapter.ViewHo
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view=LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_rv,
                 viewGroup,false);
+        ButterKnife.bind(this,view);
         viewHolder=new ViewHolder(view);
         return viewHolder;
     }
@@ -60,16 +60,16 @@ public class ItemMainAdapter extends RecyclerView.Adapter<ItemMainAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         Thing.DataBean item_main=(Thing.DataBean)lists.get(i);
         //
-        if (false){
+        if (!item_main.getQq_image().isEmpty()){
             //如果QQ头像的图片链接存在
-            Glide.with(MyApplication.getContext()).load("http://192.168.43.61:8080/img/1.png").into(pic);
+            Glide.with(MyApplication.getContext()).load(item_main.getQq_image()).into(pic);
         }else{
             //维持默认图片
         }
         //
-        if (false){
+        if (!item_main.getQq_name().isEmpty()){
             //如果QQ昵称存在，显示
-            name.setText("QQ昵称");
+            name.setText(item_main.getQq_name());
         }else{
             //维持原状
         }
