@@ -75,10 +75,11 @@ public class MainActivity extends BaseActivity implements DefineView {
     private SwipeRecyclerView swipeRecyclerView;
     private List<LeftItemMenu> lists_left=new ArrayList<>();
     /*
-    * 侧滑菜单的头像、名称
+    * 侧滑菜单的头像、名称、学号
     * */
     @BindView(R.id.iv_bottom)ImageView imageView;
     @BindView(R.id.name)TextView name;
+    @BindView(R.id.number)TextView number;
 
     /*
     * 给碎片提供Bundle
@@ -167,6 +168,7 @@ public class MainActivity extends BaseActivity implements DefineView {
             String nickname=obj.getNickname();
             final String figureurl_qq_1=obj.getFigureurl_qq_1();
             name.setText(nickname);
+            number.setText(obj.getNumber());
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

@@ -33,6 +33,7 @@
                 android:textColor="#ffffff"
                 android:textSize="18sp" />
             <TextView
+                android:id="@+id/number"
                 android:layout_marginTop="6dp"
                 android:text="学号：221701414"
                 android:textColor="#ffffff"
