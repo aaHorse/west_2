@@ -52,14 +52,13 @@ import static com.example.zexiger.myapplication.base.MyApplication.getContext;
 
 public class OcrActivity extends BaseActivity {
     @BindView(R.id.emptyView)QMUIEmptyView emptyView;
-    @BindView(R.id.bar_layout)
-    ViewGroup linear_bar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ocr);
         ButterKnife.bind(this);
+        setStatusBar();
         init_ocr();
         emptyView.show(false, getResources().getString(R.string.str),
                 null, getResources().getString(R.string.str_button), new View.OnClickListener() {
@@ -180,7 +179,7 @@ public class OcrActivity extends BaseActivity {
         data.setAddress("26.0557538219,119.1974286674");
         data.setImage("null");
         //
-        data.setPhone("0");
+        data.setPhone("0000000");
         //
         List<QQ_messege>qq_messegeList=DataSupport.findAll(QQ_messege.class);
         QQ_messege obj=qq_messegeList.get(qq_messegeList.size()-1);
@@ -213,42 +212,14 @@ public class OcrActivity extends BaseActivity {
         Intent intent=new Intent(OcrActivity.this,MainActivity.class);
         startActivity(intent);
     }
+    @Override
+    public void onBackPressed() {
+        Intent intent=new Intent(OcrActivity.this,MainActivity.class);
+        startActivity(intent);
+        super.onBackPressed();
+    }
 
 
-    /**
-     * 设置沉浸式状态栏
-     */
-    protected void setStatusBar() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            final int statusHeight = getStatusBarHeight();
-            linear_bar.post(new Runnable() {
-                @Override
-                public void run() {
-                    int titleHeight = linear_bar.getHeight();
-                    android.widget.LinearLayout.LayoutParams params = (android.widget.LinearLayout.LayoutParams) linear_bar.getLayoutParams();
-                    params.height = statusHeight + titleHeight;
-                    linear_bar.setLayoutParams(params);
-                }
-            });
-        }
-    }
-    /**
-     * 获取状态栏的高度
-     * @return
-     */
-    protected int getStatusBarHeight(){
-        try
-        {
-            Class<?> c=Class.forName("com.android.internal.R$dimen");
-            Object obj=c.newInstance();
-            Field field=c.getField("status_bar_height");
-            int x=Integer.parseInt(field.get(obj).toString());
-            return  getResources().getDimensionPixelSize(x);
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        return 0;
-    }
 
     private void func(final String json){
         new Thread(new Runnable() {

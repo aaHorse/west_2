@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingBottom="30dp"
     android:paddingTop="50dp">
     <!--顶部头像等资料信息-->
@@ -11,15 +12,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_bottom"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:src="@drawable/icon_avatar"
-            android:scaleType="center"
             />
         <LinearLayout
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginLeft="10dp"
@@ -30,13 +34,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="名字:jiangqqlmj"
-                android:textColor="#ffffff"
+                android:textColor="@color/my_color_bai"
                 android:textSize="18sp" />
             <TextView
                 android:id="@+id/number"
                 android:layout_marginTop="6dp"
                 android:text="学号：221701414"
-                android:textColor="#ffffff"
+                android:textColor="@color/my_color_bai"
                 android:textSize="14sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

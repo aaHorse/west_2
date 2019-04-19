@@ -20,24 +20,6 @@
             android:layout_height="match_parent"
             android:background="@drawable/ban_shadow"/>
 
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:gravity="center"
-            android:textSize="23sp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="50dp"
-            android:text="失物招领"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:layout_alignParentBottom="true"
-            android:gravity="center"
-            android:layout_marginBottom="8dp"
-            android:text="点击界面，祝你好运"/>
     </RelativeLayout>
 
     <FrameLayout

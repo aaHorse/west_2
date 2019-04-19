@@ -109,18 +109,20 @@ public class Fragment_specific extends Fragment {
             isfound.setText("已找到");
         }
         //
-        type.setText(bean.getType());
+        type.setText("["+bean.getType()+"]");
         //
-        info.setText(bean.getInfo());
+        info.setText("描述："+bean.getInfo());
         //
-        if(bean.getImage()=="null"){
-
+        if(bean.getImage().equals("null")){
+            Glide.with(MyApplication.getContext()).load("http://192.168.43.61:8080/img/defaultImg/default.png").into(picture);
         } else{
             Log.d("ttttt","图片的链接为"+bean.getImage());
             //图片链接存在
             Glide.with(MyApplication.getContext()).load(bean.getImage()).into(picture);
         }
         id=bean.getId();
+        //
+        phone.setText("联系方式："+bean.getPhone());
     }
 
 

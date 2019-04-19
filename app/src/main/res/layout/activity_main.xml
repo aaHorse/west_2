@@ -3,7 +3,7 @@
     android:id="@+id/drag_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/head_background">
+    android:background="@mipmap/background">
     <!--1.底部功能(左侧侧滑功能布局)-->
     <include layout="@layout/left_layout"/>
     <!--2.上层主界面View  main view布局-->
@@ -11,7 +11,7 @@
     <com.example.zexiger.myapplication.widget.CustomRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFFFFF"
+        android:background="@color/my_color_bai"
         >
         <LinearLayout
             android:id="@+id/line_4"
@@ -37,7 +37,8 @@
                         android:layout_weight="1"
                         android:layout_height="50dp"
                         android:text="找失主"
-                        android:background="@color/app_color_blue_2"
+                        android:textColor="@color/my_color_bai"
+                        android:background="@color/my_color_hei"
                         />
                     <Button
                         android:id="@+id/button_3"
@@ -45,6 +46,7 @@
                         android:layout_weight="1"
                         android:layout_height="50dp"
                         android:text="找失物"
+                        android:textColor="@color/my_color_bai"
                         android:background="@color/app_color_blue"
                         />
                 </LinearLayout>
@@ -52,7 +54,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@id/line_2"
-                    android:layout_marginTop="10dp"
                     >
                     <LinearLayout
                         android:id="@+id/line_3"
@@ -70,7 +71,6 @@
                         android:layout_margin="16dp"
                         android:layout_gravity="bottom|end"
                         android:src="@drawable/ic_add_black_24dp"
-                        android:background="#ffffff"
                         app:elevation="8dp"/>
                 </FrameLayout>
             </RelativeLayout>

@@ -55,4 +55,5 @@ dependencies {
     implementation 'com.github.louisgeek:ClassicLinesEditView:1.0.2'
     implementation files('libs/ocr-sdk.jar')
     implementation project(':ocr_ui')
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
 }

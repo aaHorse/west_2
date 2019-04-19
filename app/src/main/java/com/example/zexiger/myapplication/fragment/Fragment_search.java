@@ -19,6 +19,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -126,7 +127,24 @@ public class Fragment_search extends Fragment {
 
     @OnClick(R.id.top_bar_icon)void back(){
         showMessageNegativeDialog();
-        //Toast.makeText(activity, "你想返回！", Toast.LENGTH_SHORT).show();
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK){
+                    showMessageNegativeDialog();
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     private void init_title(int n){
@@ -326,7 +344,7 @@ public class Fragment_search extends Fragment {
 
     private void showMessageNegativeDialog() {
         new QMUIDialog.MessageDialogBuilder(getActivity())
-                .setTitle("！！！")
+                .setTitle("注意")
                 .setMessage("你编辑的东西还没发布，确定要退出？")
                 .addAction("取消", new QMUIDialogAction.ActionListener() {
                     @Override

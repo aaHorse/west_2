@@ -231,10 +231,6 @@ public class SearchActivity extends BaseActivity {
                         bit = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
                         Log.d("ttttt", "aaa"+String.valueOf(bit));
                         saveBitmap(bit,"temp.jpg");
-/*                        FragmentTransaction transaction=fragmentManager.beginTransaction();
-                        Fragment fragment=new Fragment_cs();
-                        transaction.replace(R.id.fragment,fragment);
-                        transaction.commit();*/
                     }else{
                         Log.d("ttttt","图片地址为空");
                     }
@@ -282,7 +278,7 @@ public class SearchActivity extends BaseActivity {
 
     public void get_pic(){
         func_2();
-        choosePhoto();
+        //choosePhoto();
     }
 
     public void saveBitmap(Bitmap bitmap,String name) {
@@ -321,15 +317,6 @@ public class SearchActivity extends BaseActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-//        Log.d("ttttt",fileName+"");
-/*        // 把文件插入到系统图库
-        try {
-            MediaStore.Images.Media.insertImage(this.getContentResolver(), file.getAbsolutePath(), fileName, null);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        // 通知图库更新
-        sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + "/sdcard/namecard/")));*/
     }
 
 }

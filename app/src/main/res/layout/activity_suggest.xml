@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.OcrActivity"
+    tools:context=".activity.SuggestActivity"
     android:orientation="vertical"
     >
 
@@ -39,7 +39,7 @@
                     android:id="@+id/top_bar_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="拍照上传"
+                    android:text="意见反馈"
                     android:textColor="@color/my_color_bai"
                     android:layout_centerInParent="true"
                     android:textSize="20sp"
@@ -49,10 +49,12 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <com.qmuiteam.qmui.widget.QMUIEmptyView
-        android:id="@+id/emptyView"
+    <com.example.zexiger.myapplication.some.QDQQFaceView
+        android:id="@+id/qqface"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/qmui_config_color_white"
-        android:fitsSystemWindows="true"/>
+        android:textSize="25sp"
+        android:textColor="?attr/qmui_config_color_gray_5"
+        android:ellipsize="start"/>
+
 </LinearLayout>

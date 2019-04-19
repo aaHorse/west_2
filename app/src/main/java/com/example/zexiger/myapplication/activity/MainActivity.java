@@ -12,7 +12,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -80,18 +82,19 @@ public class MainActivity extends BaseActivity implements DefineView {
     @BindView(R.id.iv_bottom)ImageView imageView;
     @BindView(R.id.name)TextView name;
     @BindView(R.id.number)TextView number;
+    private static Button button_2;
+    private static Button button_3;
+
 
     /*
     * 给碎片提供Bundle
     * */
     public static Bundle bundle;
-
     /*
     * 动态添加碎片
     * */
     public static FragmentManager fragmentManager;
     FragmentTransaction transaction;
-
     /*
     * 信息的两种不同显示界面
     * */
@@ -108,6 +111,8 @@ public class MainActivity extends BaseActivity implements DefineView {
         linearLayout_brife=(LinearLayout)findViewById(R.id.line_4);
         linearLayout_specific=(LinearLayout)findViewById(R.id.line_5);
         linearLayout_my=(RelativeLayout)findViewById(R.id.line_my);
+        button_2=findViewById(R.id.button_2);
+        button_3=findViewById(R.id.button_3);
         fragmentManager=getSupportFragmentManager();
         bundle=savedInstanceState;
         Log.d("ttttt",sHA1(MainActivity.this));
@@ -222,7 +227,7 @@ public class MainActivity extends BaseActivity implements DefineView {
     }
 
     private void init_left(){
-        lists_left.add(new LeftItemMenu(R.drawable.icon_shoucang,"账号信息"));
+        lists_left.add(new LeftItemMenu(R.drawable.aaa,"账号信息"));
         lists_left.add(new LeftItemMenu(R.drawable.icon_shoucang,"我的发布"));
         lists_left.add(new LeftItemMenu(R.drawable.icon_shoucang,"意见反馈"));
         lists_left.add(new LeftItemMenu(R.drawable.icon_shoucang,"关于我们"));
@@ -237,14 +242,15 @@ public class MainActivity extends BaseActivity implements DefineView {
                     case 0:break;
                     case 1:
                         drag_layout.close();
+                        show_hei();
                         Fragment_main_right.startFragment("我的发布");
                         break;
                     case 2:
-                        Intent intent=new Intent(MainActivity.this,Cs.class);
+                        Intent intent=new Intent(MainActivity.this,SuggestActivity.class);
                         startActivity(intent);
                         break;
                     case 3:
-                        Intent intent2=new Intent(MainActivity.this,Cs.class);
+                        Intent intent2=new Intent(MainActivity.this,AboutActivity.class);
                         startActivity(intent2);
                         break;
                     case 4:
@@ -276,13 +282,13 @@ public class MainActivity extends BaseActivity implements DefineView {
     }
 
     @OnClick(R.id.button_2)void button_1(){
-        findViewById(R.id.button_2).setBackgroundColor(Color.parseColor("#00A8bb"));
-        findViewById(R.id.button_3).setBackgroundColor(Color.parseColor("#00A8E1"));
+        button_2.setBackgroundColor(Color.parseColor("#00A8bb"));
+        button_3.setBackgroundColor(Color.parseColor("#300000"));
         Fragment_main_right.startFragment("找失主");
     }
     @OnClick(R.id.button_3)void button_2(){
-        findViewById(R.id.button_2).setBackgroundColor(Color.parseColor("#00A8E1"));
-        findViewById(R.id.button_3).setBackgroundColor(Color.parseColor("#00A8bb"));
+        button_2.setBackgroundColor(Color.parseColor("#300000"));
+        button_3.setBackgroundColor(Color.parseColor("#00A8bb"));
         Fragment_main_right.startFragment("找失物");
     }
 
@@ -331,6 +337,11 @@ public class MainActivity extends BaseActivity implements DefineView {
         linearLayout_specific.setVisibility(View.VISIBLE);
     }
 
+    public static void show_hei(){
+        button_2.setBackgroundColor(Color.parseColor("#300000"));
+        button_3.setBackgroundColor(Color.parseColor("#300000"));
+    }
+
     private void showMessageNegativeDialog() {
         new QMUIDialog.MessageDialogBuilder(MainActivity.this)
                 .setTitle("退出登录")
@@ -357,6 +368,33 @@ public class MainActivity extends BaseActivity implements DefineView {
                     }
                 })
                 .create(com.qmuiteam.qmui.R.style.QMUI_Dialog).show();
+    }
+
+
+    /*
+     * 点击两次退出功能
+     * 声明一个long类型变量：用于存放上一点击“返回键”的时刻
+     * */
+    private long mExitTime;
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        //判断用户是否点击了“返回键”
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            //将搜索框收回
+            drag_layout.close();
+            //与上次点击返回键时刻作差
+            if ((System.currentTimeMillis() - mExitTime) > 2000) {
+                //大于2000ms则认为是误操作，使用Toast进行提示
+                Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                //并记录下本次点击“返回键”的时刻，以便下次进行判断
+                mExitTime = System.currentTimeMillis();
+            } else {
+                //小于2000ms则认为是用户确实希望退出程序-调用System.exit()方法进行退出
+                ActivityCollector.finishAll();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 }

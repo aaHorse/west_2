@@ -5,9 +5,14 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name="color_white">#FFFFFF</color>
-    <color name="app_color_blue">#00A8E1</color>
+    <color name="app_color_blue">#030000</color>
     <color name="app_color_blue_2">#00A8bb</color>
     <color name="app_color_blue_disabled">#8000A8E1</color>
     <color name="app_color_blue_pressed">#c000A8E1</color>
     <color name="app_primary_color">#3F51B5</color>
+
+    <color name="my_color_hei">#300000</color>
+    <color name="my_color_bai">#fffafa</color>
+    <color name="my_color_hong">#fa4a4a</color>
+    <color name="my_color_lv">#46c458</color>
 </resources>

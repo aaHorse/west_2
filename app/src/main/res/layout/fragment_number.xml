@@ -17,8 +17,8 @@
             android:hint="请输入你的学号"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:textColor="#ffffff"
-            android:textColorHint="#ffffff"
+            android:textColor="@color/my_color_bai"
+            android:textColorHint="@color/my_color_bai"
             android:background="@drawable/shape"
             android:layout_width="300dp"
             android:layout_height="wrap_content" />
@@ -35,9 +35,9 @@
             android:layout_marginTop="20dp"
             android:text="确定"
             android:textSize="20sp"
-            android:shadowColor="#ffffff"
-            android:textColor="#ffffff"
-            app:qmui_borderColor="#ffffff"
+            android:shadowColor="@color/my_color_bai"
+            android:textColor="@color/my_color_bai"
+            app:qmui_borderColor="@color/my_color_bai"
             app:qmui_isRadiusAdjustBounds="true"/>
     </LinearLayout>
 

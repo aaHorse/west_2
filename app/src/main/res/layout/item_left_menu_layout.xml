@@ -20,14 +20,14 @@
         android:layout_toRightOf="@id/item_left_view_img"
         android:layout_centerVertical="true"
         android:text="设置"
-        android:textColor="@color/color_white"
+        android:textColor="@color/my_color_bai"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <View
         android:layout_width="200dp"
         android:layout_height="1dp"
         android:layout_marginLeft="50dp"
-        android:background="#63B8FF"
+        android:background="@color/my_color_bai"
         android:layout_below="@+id/item_left_view_img"
         />
 </RelativeLayout>

@@ -36,6 +36,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="详细信息"
+                    android:textColor="@color/my_color_bai"
                     android:layout_centerInParent="true"
                     android:textSize="20sp"
                     />
@@ -134,7 +135,9 @@
                 android:layout_height="50dp"
                 android:layout_centerInParent="true"
                 android:background="@drawable/sss"
+                android:textColor="@color/my_color_hei"
                 android:text="发布信息"
+                android:textSize="20sp"
                 android:layout_centerHorizontal="true"
                 />
 
@@ -145,19 +148,18 @@
             android:id="@+id/line_2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="?attr/qmui_topbar_height"
-            android:background="@color/qmui_config_color_white"
-            android:fitsSystemWindows="true"
+            android:background="@color/my_color_bai"
             android:visibility="gone"
             >
 
             <LinearLayout
                 android:id="@+id/line_3"
+                android:layout_centerHorizontal="true"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="400dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginTop="20dp"
                 android:orientation="vertical"
                 />
 

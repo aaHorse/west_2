@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,8 @@ import java.lang.reflect.Field;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.example.zexiger.myapplication.activity.MainActivity.show_hei;
 
 public class Fragment_sousuo extends Fragment {
     private MainActivity activity;
@@ -59,30 +62,50 @@ public class Fragment_sousuo extends Fragment {
         Toast.makeText(context,"你想返回！",Toast.LENGTH_SHORT).show();
         activity.show_brife();
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK){
+                    activity.show_brife();
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
 
     /*
     * 电子产品
     * */
     @OnClick(R.id.button_11)void button_11(){
         Fragment_main_right.startFragment("电子产品");
+        show_hei();
         activity.show_brife();
 /*        relativeLayout_2.setVisibility(View.GONE);
         relativeLayout_3.setVisibility(View.VISIBLE);*/
     }
     @OnClick(R.id.button_12)void button_12(){
         Fragment_main_right.startFragment("衣物");
+        show_hei();
         activity.show_brife();
 /*        relativeLayout_2.setVisibility(View.GONE);
         relativeLayout_3.setVisibility(View.VISIBLE);*/
     }
     @OnClick(R.id.button_13)void button_13(){
         Fragment_main_right.startFragment("其他");
+        show_hei();
         activity.show_brife();
 /*        relativeLayout_2.setVisibility(View.GONE);
         relativeLayout_3.setVisibility(View.VISIBLE);*/
     }
     @OnClick(R.id.button_14)void button_14(){
         Fragment_main_right.startFragment("校园卡");
+        show_hei();
         activity.show_brife();
 /*        relativeLayout_2.setVisibility(View.GONE);
         relativeLayout_3.setVisibility(View.VISIBLE);*/
