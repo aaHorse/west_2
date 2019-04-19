@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">失物招领平台</string>
+    <string name="str">拍照直接上传学生信息</string>
+    <string name="str_button">点击拍照</string>
 </resources>

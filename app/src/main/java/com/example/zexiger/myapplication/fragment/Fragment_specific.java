@@ -112,12 +112,13 @@ public class Fragment_specific extends Fragment {
         type.setText(bean.getType());
         //
         info.setText(bean.getInfo());
-            //
-        if(!bean.getImage().isEmpty()){
+        //
+        if(bean.getImage()=="null"){
+
+        } else{
+            Log.d("ttttt","图片的链接为"+bean.getImage());
             //图片链接存在
             Glide.with(MyApplication.getContext()).load(bean.getImage()).into(picture);
-        }else{
-            //维持原状
         }
         id=bean.getId();
     }

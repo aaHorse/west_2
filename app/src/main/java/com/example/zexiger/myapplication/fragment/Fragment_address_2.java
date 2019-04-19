@@ -17,11 +17,13 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps2d.AMap;
+import com.amap.api.maps2d.AMapOptions;
 import com.amap.api.maps2d.CameraUpdateFactory;
 import com.amap.api.maps2d.MapView;
 import com.amap.api.maps2d.model.BitmapDescriptorFactory;
 import com.amap.api.maps2d.model.CameraPosition;
 import com.amap.api.maps2d.model.LatLng;
+import com.amap.api.maps2d.model.Marker;
 import com.amap.api.maps2d.model.MarkerOptions;
 import com.amap.api.services.core.LatLonPoint;
 import com.example.zexiger.myapplication.R;
@@ -48,7 +50,6 @@ public class Fragment_address_2 extends Fragment {
         ButterKnife.bind(this,view);
         activity=(SpecificActivity) getActivity();
         context=getContext();
-
         Bundle bundle=getArguments();
         String address=bundle.getString("flag");
         latitude=(double)Double.parseDouble(address.split(",")[0]);
@@ -56,19 +57,11 @@ public class Fragment_address_2 extends Fragment {
 
         mapView.onCreate(SpecificActivity.bundle);
         aMap=mapView.getMap();
-        setUpMap();
-        return view;
-    }
+        LatLng latLng = new LatLng(latitude,longtitude);
 
-    private void setUpMap() {
-        aMap.moveCamera(CameraUpdateFactory.zoomTo(30)); // 设置地图可视缩放大小
-        aMap.clear();
-        LatLng latLng = new LatLng(latitude, longtitude);
-        latitude=latLng.latitude;
-        longtitude=latLng.longitude;
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.local));
-        markerOptions.position(latLng);
-        aMap.addMarker(markerOptions);
+        //使用默认点标记
+        Marker maker=aMap.addMarker(new MarkerOptions().position(latLng).title("地点:").snippet("hahahah"));
+        aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,30));
+        return view;
     }
 }

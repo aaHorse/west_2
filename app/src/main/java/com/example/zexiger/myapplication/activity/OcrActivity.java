@@ -3,9 +3,13 @@ package com.example.zexiger.myapplication.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.baidu.idl.util.FileUtil;
 import com.baidu.ocr.sdk.OCR;
@@ -17,13 +21,39 @@ import com.baidu.ocr.sdk.model.GeneralResult;
 import com.baidu.ocr.sdk.model.WordSimple;
 import com.baidu.ocr.ui.camera.CameraActivity;
 import com.example.zexiger.myapplication.R;
+import com.example.zexiger.myapplication.base.BaseActivity;
+import com.example.zexiger.myapplication.base.MyApplication;
+import com.example.zexiger.myapplication.db.Card;
+import com.example.zexiger.myapplication.db.QQ_messege;
+import com.example.zexiger.myapplication.entity.Data;
+import com.example.zexiger.myapplication.entity.Thing;
+import com.example.zexiger.myapplication.http_util.HttpOK;
+import com.google.gson.Gson;
+import com.qmuiteam.qmui.widget.QMUIEmptyView;
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
+
+import org.litepal.crud.DataSupport;
 
 import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
-public class OcrActivity extends AppCompatActivity {
+import static com.example.zexiger.myapplication.base.MyApplication.getContext;
+
+public class OcrActivity extends BaseActivity {
+    @BindView(R.id.emptyView)QMUIEmptyView emptyView;
+    @BindView(R.id.bar_layout)
+    ViewGroup linear_bar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,22 +61,23 @@ public class OcrActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ocr);
         ButterKnife.bind(this);
         init_ocr();
+        emptyView.show(false, getResources().getString(R.string.str),
+                null, getResources().getString(R.string.str_button), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // 生成intent对象
+                        Intent intent = new Intent(OcrActivity.this, CameraActivity.class);
+                        // 设置临时存储
+                        intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH, getSaveFile(getApplication()).getAbsolutePath());
+                        // 调用除银行卡，身份证等识别的activity
+                        intent.putExtra(CameraActivity.KEY_CONTENT_TYPE, CameraActivity.CONTENT_TYPE_GENERAL);
+                        startActivityForResult(intent, REQUEST_CODE_CAMERA);
+                    }
+                });
     }
 
     private static int REQUEST_CODE_CAMERA=1;
 
-    @OnClick(R.id.ocr_button_1)void button_1(){
-// 生成intent对象
-        Intent intent = new Intent(OcrActivity.this, CameraActivity.class);
-
-// 设置临时存储
-        intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
-                getSaveFile(getApplication()).getAbsolutePath());
-
-// 调用除银行卡，身份证等识别的activity
-        intent.putExtra(CameraActivity.KEY_CONTENT_TYPE, CameraActivity.CONTENT_TYPE_GENERAL);
-        startActivityForResult(intent, REQUEST_CODE_CAMERA);
-    }
 
     /*
     * 初始化ocr
@@ -102,7 +133,14 @@ public class OcrActivity extends AppCompatActivity {
                     }
                     // json格式返回字符串
                     //listener.onResult(result.getJsonRes());
-                    Log.d("ttttt","文字识别的返回值为"+sb.toString());
+                    Log.d("ttttt","文字识别的返回值为"+result.getJsonRes());
+                    Card card=new Gson().fromJson(result.getJsonRes(),Card.class);
+                    List<Card.WordsResultBean> words_result=card.getWords_result();
+                    /*
+                    * 对信息进行初始化，
+                    * 并且传到服务器上面
+                    * */
+                    init_data(words_result);
                 }
                 @Override
                 public void onError(OCRError error) {
@@ -113,4 +151,142 @@ public class OcrActivity extends AppCompatActivity {
         }
     }
 
+    private void init_data(List<Card.WordsResultBean> words_result){
+        String info="";
+        if(words_result.size()>4){
+            info=words_result.get(1).getWords()+"\n"
+                    +words_result.get(2).getWords()+"\n"
+                    +words_result.get(3).getWords();
+            Log.d("ttttt","初始化的信息为"+info);
+        }else{
+            Toast.makeText(MyApplication.getContext(),"拍照上传失败",Toast.LENGTH_SHORT).show();
+            Intent intent=new Intent(OcrActivity.this,OcrActivity.class);
+            startActivity(intent);
+        }
+
+        Gson gson=new Gson();
+        final Data data=new Data();
+        data.setInfo(info);
+        data.setType("校园卡");
+        /*
+        * 初始化福州大学
+        * */
+        data.setAddress(null);
+        Date now=new Date();
+        String date=getStringDate(now);
+        data.setDate(date);
+        data.setIsfound(1);
+        data.setIsexist(0);
+        data.setAddress("26.0557538219,119.1974286674");
+        data.setImage("null");
+        //
+        data.setPhone("0");
+        //
+        List<QQ_messege>qq_messegeList=DataSupport.findAll(QQ_messege.class);
+        QQ_messege obj=qq_messegeList.get(qq_messegeList.size()-1);
+        String nickname=obj.getNickname();
+        String figureurl_qq_1=obj.getFigureurl_qq_1();
+        String number=obj.getNumber();
+        data.setQq_name(nickname);
+        data.setQq_image(figureurl_qq_1);
+        data.setName(number);
+
+        final String json=gson.toJson(data);
+        /*
+         * 给服务器发送提交
+         * */
+        Log.d("ttttt",json);
+        func(json);
+    }
+
+    public String getStringDate(Date now){
+        SimpleDateFormat sdfd =new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
+        String str=sdfd.format(now);
+        return str;
+    }
+
+
+    /*
+    *返回
+    * */
+    @OnClick(R.id.top_bar_icon)void button_back(){
+        Intent intent=new Intent(OcrActivity.this,MainActivity.class);
+        startActivity(intent);
+    }
+
+
+    /**
+     * 设置沉浸式状态栏
+     */
+    protected void setStatusBar() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            final int statusHeight = getStatusBarHeight();
+            linear_bar.post(new Runnable() {
+                @Override
+                public void run() {
+                    int titleHeight = linear_bar.getHeight();
+                    android.widget.LinearLayout.LayoutParams params = (android.widget.LinearLayout.LayoutParams) linear_bar.getLayoutParams();
+                    params.height = statusHeight + titleHeight;
+                    linear_bar.setLayoutParams(params);
+                }
+            });
+        }
+    }
+    /**
+     * 获取状态栏的高度
+     * @return
+     */
+    protected int getStatusBarHeight(){
+        try
+        {
+            Class<?> c=Class.forName("com.android.internal.R$dimen");
+            Object obj=c.newInstance();
+            Field field=c.getField("status_bar_height");
+            int x=Integer.parseInt(field.get(obj).toString());
+            return  getResources().getDimensionPixelSize(x);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    private void func(final String json){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String address="http://192.168.43.61:8080/api/append";
+                //提交
+                HttpOK.post_json(address,json,new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                       runOnUiThread(new Runnable() {
+                           @Override
+                           public void run() {
+                               Toast.makeText(MyApplication.getContext(),"信息发布失败",Toast.LENGTH_SHORT).show();
+/*                               QMUITipDialog tipDialog = new QMUITipDialog.Builder(getContext())
+                                       .setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING)
+                                       .setTipWord("信息发布失败")
+                                       .create();
+                               tipDialog.show();*/
+                           }
+                       });
+                    }
+                    @Override
+                    public void onResponse(Call call, final Response response) throws IOException {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try{
+                                    Toast.makeText(MyApplication.getContext(),"信息发布成功",Toast.LENGTH_SHORT).show();
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                    Toast.makeText(MyApplication.getContext(),"信息发布失败",Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+        }).start();
+    }
 }

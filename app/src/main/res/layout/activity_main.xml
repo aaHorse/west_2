@@ -52,6 +52,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@id/line_2"
+                    android:layout_marginTop="10dp"
                     >
                     <LinearLayout
                         android:id="@+id/line_3"

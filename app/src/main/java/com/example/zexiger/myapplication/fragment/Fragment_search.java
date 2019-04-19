@@ -79,8 +79,8 @@ public class Fragment_search extends Fragment {
     private String phone="0";
     private String date="0";
 
-    double latitude=0;
-    double longtitude=0;
+    double latitude=26.0557538219;
+    double longtitude=119.1974286674;
 
     /*
     * 标记从哪里过来的
@@ -204,8 +204,8 @@ public class Fragment_search extends Fragment {
             data.setInfo(info);
             data.setType(type);
             data.setAddress(address);
-            data.setImage(pic);
             data.setDate(date);
+            data.setImage("null");
             /*
             * 未找到
             * */

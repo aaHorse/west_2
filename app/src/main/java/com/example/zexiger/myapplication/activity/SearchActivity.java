@@ -95,7 +95,9 @@ public class SearchActivity extends BaseActivity {
                 init_fragment(1);
                 break;
             case 2:
-                init_fragment(2);
+                Intent intent_1=new Intent(SearchActivity.this,OcrActivity.class);
+                startActivity(intent_1);
+                //init_fragment(2);
                 break;
             default:
                 Log.d("ttttt","SearchActivity出错");
