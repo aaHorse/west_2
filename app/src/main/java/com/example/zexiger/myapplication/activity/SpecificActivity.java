@@ -49,6 +49,6 @@ public class SpecificActivity extends BaseActivity {
         FragmentTransaction transaction=fragmentManager.beginTransaction();
         transaction.replace(R.id.line,fragment);
         transaction.commit();
-        Toast.makeText(this,"对象传过来了",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,"对象传过来了",Toast.LENGTH_SHORT).show();
     }
 }

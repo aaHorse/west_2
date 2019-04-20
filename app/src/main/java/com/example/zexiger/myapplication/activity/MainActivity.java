@@ -84,6 +84,7 @@ public class MainActivity extends BaseActivity implements DefineView {
     @BindView(R.id.number)TextView number;
     private static Button button_2;
     private static Button button_3;
+    private static Button button_4;
 
     /*
     * 全局的学号、QQ头像、昵称
@@ -119,6 +120,7 @@ public class MainActivity extends BaseActivity implements DefineView {
         linearLayout_my=(RelativeLayout)findViewById(R.id.line_my);
         button_2=findViewById(R.id.button_2);
         button_3=findViewById(R.id.button_3);
+        button_4=findViewById(R.id.button_4);
         fragmentManager=getSupportFragmentManager();
         bundle=savedInstanceState;
         Log.d("ttttt",sHA1(MainActivity.this));
@@ -205,7 +207,7 @@ public class MainActivity extends BaseActivity implements DefineView {
     }
     @Override
     public void bindData() {
-        Fragment_main_right.startFragment("找失主");
+        Fragment_main_right.startFragment("查全部");
     }
 
     /*
@@ -294,12 +296,20 @@ public class MainActivity extends BaseActivity implements DefineView {
     @OnClick(R.id.button_2)void button_1(){
         button_2.setBackgroundColor(Color.parseColor("#00A8bb"));
         button_3.setBackgroundColor(Color.parseColor("#030000"));
+        button_4.setBackgroundColor(Color.parseColor("#030000"));
         Fragment_main_right.startFragment("找失主");
     }
     @OnClick(R.id.button_3)void button_2(){
         button_2.setBackgroundColor(Color.parseColor("#030000"));
         button_3.setBackgroundColor(Color.parseColor("#00A8bb"));
+        button_4.setBackgroundColor(Color.parseColor("#030000"));
         Fragment_main_right.startFragment("找失物");
+    }
+    @OnClick(R.id.button_4)void button_3(){
+        button_4.setBackgroundColor(Color.parseColor("#00A8bb"));
+        button_2.setBackgroundColor(Color.parseColor("#030000"));
+        button_3.setBackgroundColor(Color.parseColor("#030000"));
+        Fragment_main_right.startFragment("查全部");
     }
 
     /*
@@ -327,7 +337,7 @@ public class MainActivity extends BaseActivity implements DefineView {
                 .addItems(items, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(MainActivity.this, "你选择了 " + items[which], Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MainActivity.this, "你选择了 " + items[which], Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                         SearchActivity.startActivity(MainActivity.this,which);
                     }
@@ -350,6 +360,7 @@ public class MainActivity extends BaseActivity implements DefineView {
     public static void show_hei(){
         button_2.setBackgroundColor(Color.parseColor("#030000"));
         button_3.setBackgroundColor(Color.parseColor("#030000"));
+        button_4.setBackgroundColor(Color.parseColor("#030000"));
     }
 
     private void showMessageNegativeDialog() {

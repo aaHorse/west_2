@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:fitsSystemWindows="true"
     >
 
     <LinearLayout
@@ -12,7 +11,9 @@
         android:background="@color/app_color_blue"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
+        android:layout_height="?attr/actionBarSize"
+        android:fitsSystemWindows="true"
+        >
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -36,7 +37,8 @@
                     android:id="@+id/top_bar_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="搜索"
+                    android:text="相似度匹配"
+                    android:textColor="@color/my_color_bai"
                     android:layout_centerInParent="true"
                     android:textSize="20sp"
                     />

@@ -61,8 +61,8 @@ public class Fragment_address_2 extends Fragment {
         context=getContext();
         Bundle bundle=getArguments();
         String address=bundle.getString("flag");
-        latitude=(double)Double.parseDouble(address.split(",")[0]);
-        longtitude=(double)Double.parseDouble(address.split(",")[1]);
+        longtitude=(double)Double.parseDouble(address.split(",")[0]);
+        latitude=(double)Double.parseDouble(address.split(",")[1]);
 
         mapView.onCreate(SpecificActivity.bundle);
         aMap=mapView.getMap();

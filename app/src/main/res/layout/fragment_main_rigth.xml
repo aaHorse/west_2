@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.qmuiteam.qmui.widget.QMUIWindowInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -12,7 +13,8 @@
             <com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout
                 android:id="@+id/main"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                >
                 <ezy.ui.layout.LoadingLayout
                     android:id="@+id/loading"
                     android:layout_width="match_parent"

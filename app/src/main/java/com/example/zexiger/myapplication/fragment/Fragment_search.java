@@ -211,7 +211,7 @@ public class Fragment_search extends Fragment {
         * */
         info=linesEditView.getContentText().toString();
         //type
-        address=latitude+","+longtitude;
+        address=longtitude+","+latitude;
         //pic
         phone=editText.getText().toString();
         if(info.isEmpty()){
@@ -287,7 +287,8 @@ public class Fragment_search extends Fragment {
                                 @Override
                                 public void run() {
                                    try{
-                                       Search2Activity.startActivity(context,type);
+                                       Log.d("ttttt","在Fragment_search里面");
+                                       Search2Activity.startActivity(context,json);
                                    }catch (Exception e){
                                        e.printStackTrace();
                                        Log.d("ttttt","Fragment_search跳转到Search2Activity出错");
@@ -333,7 +334,7 @@ public class Fragment_search extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         type=items[which];
                         checkedIndex=which;
-                        Toast.makeText(getActivity(), "你选择了 " + type, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getActivity(), "你选择了 " + type, Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                     }
                 })

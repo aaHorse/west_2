@@ -133,7 +133,7 @@ public class Fragment_specific extends Fragment {
 
 
     @OnClick(R.id.top_bar_icon)void back_button(){
-        Toast.makeText(context,"你想返回！",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context,"你想返回！",Toast.LENGTH_SHORT).show();
         Intent intent=new Intent(context,MainActivity.class);
         context.startActivity(intent);
     }
@@ -141,7 +141,7 @@ public class Fragment_specific extends Fragment {
 
 
     @OnClick(R.id.address)void button_address(){
-        Toast.makeText(context,"你想查看详细地址！",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context,"你想查看详细地址！",Toast.LENGTH_SHORT).show();
         FragmentTransaction transaction=SpecificActivity.fragmentManager.beginTransaction();
         Fragment fragment=new Fragment_address_2();
         Bundle bundle=new Bundle();
@@ -161,7 +161,7 @@ public class Fragment_specific extends Fragment {
     }
 
     @OnClick(R.id.xiugai)void button_xiugai(){
-        Toast.makeText(context,"你想标记信息！",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context,"你想标记信息！",Toast.LENGTH_SHORT).show();
         flag=0;
         /*
         * 打开选择菜单进行标记
@@ -177,7 +177,7 @@ public class Fragment_specific extends Fragment {
                 .addItems(items, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getActivity(), "你选择了 " + items[which], Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getActivity(), "你选择了 " + items[which], Toast.LENGTH_SHORT).show();
                         flag=which;
                         dialog.dismiss();
                         /*

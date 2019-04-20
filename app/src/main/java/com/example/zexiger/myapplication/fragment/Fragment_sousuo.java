@@ -59,7 +59,7 @@ public class Fragment_sousuo extends Fragment {
     }
 
     @OnClick(R.id.top_bar_icon)void button_back(){
-        Toast.makeText(context,"你想返回！",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context,"你想返回！",Toast.LENGTH_SHORT).show();
         MainActivity.startActivity(context);
     }
     @Override

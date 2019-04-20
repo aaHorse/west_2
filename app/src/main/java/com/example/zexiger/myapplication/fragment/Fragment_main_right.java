@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.zexiger.myapplication.R;
 import com.example.zexiger.myapplication.activity.MainActivity;
+import com.example.zexiger.myapplication.activity.Search2Activity;
 import com.example.zexiger.myapplication.activity.SpecificActivity;
 import com.example.zexiger.myapplication.adapter.ItemMainAdapter;
 import com.example.zexiger.myapplication.db.QQ_messege;
@@ -43,6 +44,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ezy.ui.layout.LoadingLayout;
 import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.Response;
 
 import static com.example.zexiger.myapplication.activity.MainActivity.show_specific;
@@ -56,6 +58,14 @@ public class Fragment_main_right extends Fragment {
     public static void startFragment(String str){
         FragmentTransaction transaction=MainActivity.fragmentManager.beginTransaction();
         switch(str){
+            case "查全部":
+                Fragment fragment_4_5=new Fragment_main_right();
+                Bundle bundle_4_5=new Bundle();
+                bundle_4_5.putString("flag","查全部");
+                fragment_4_5.setArguments(bundle_4_5);
+                transaction.replace(R.id.line_3,fragment_4_5);
+                transaction.commit();
+                break;
             case "找失主":
                 Fragment fragment=new Fragment_main_right();
                 Bundle bundle=new Bundle();
@@ -130,7 +140,7 @@ public class Fragment_main_right extends Fragment {
     /*
     * 请求类型
     * */
-    private String str;
+    private String str="";
     private ItemMainAdapter adapter;
 
 
@@ -143,7 +153,6 @@ public class Fragment_main_right extends Fragment {
         context=getContext();
         Bundle bundle=getArguments();
         str=bundle.getString("flag");
-        Toast.makeText(context,str,Toast.LENGTH_SHORT).show();
         swipeRecyclerView=(SwipeRecyclerView)view.findViewById(R.id.rv);
         /*
         * 初始化
@@ -158,6 +167,9 @@ public class Fragment_main_right extends Fragment {
     * */
     private void init_list(final String str){
         switch(str){
+            case "查全部":
+                func_8();
+                break;
             case "找失主":
                 func_1();
                 break;
@@ -180,7 +192,7 @@ public class Fragment_main_right extends Fragment {
                 func_7();
                 break;
             default:
-                Log.d("ttttt","碎片的跳转没有匹配");
+                Log.d("ttttt","相似度匹配");
         }
 
     }
@@ -213,6 +225,41 @@ public class Fragment_main_right extends Fragment {
                                         if(bean.getIsfound()==1){
                                             lists.add(bean);
                                         }
+                                    }
+                                    init_rv();
+                                    init();
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+        }).start();
+    }
+    private void func_8(){
+        //final String address="http://zzxmylove.cn:8080/aaa/query/list";
+        final String address="http://192.168.43.61:8080/query/list";
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                HttpOK.getData(address, new okhttp3.Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        Log.d("ttttt","查询全部信息访问失败");
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        final Thing thing=new Gson().fromJson(response.body().string(),Thing.class);
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                lists.clear();
+                                List<Thing.DataBean>list_temp=thing.getData();
+                                if(list_temp!=null){
+                                    for(int i=list_temp.size()-1;i>=0;i--){
+                                        Thing.DataBean bean=list_temp.get(i);
+                                        lists.add(bean);
                                     }
                                     init_rv();
                                     init();
@@ -486,7 +533,7 @@ public class Fragment_main_right extends Fragment {
                     public void run() {
                         func_reflesh();
                         Log.d("ttttt","11131111");
-                        Toast.makeText(context,"你点击了刷新",Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(context,"刷新",Toast.LENGTH_SHORT).show();
                         mPullRefreshLayout.finishRefresh();
                     }
                 }, 2000);
@@ -498,6 +545,42 @@ public class Fragment_main_right extends Fragment {
     * 刷新
     * */
     public void func_reflesh(){
+        lists.clear();
+        switch(str) {
+            case "查全部":
+                func_81();
+                break;
+            case "找失主":
+                func_11();
+                break;
+            case "找失物":
+                func_21();
+                break;
+            case "我的发布":
+                func_31();
+                break;
+            case "电子产品":
+                func_41();
+                break;
+            case "衣物":
+                func_51();
+                break;
+            case "其他":
+                func_61();
+                break;
+            case "校园卡":
+                func_71();
+                break;
+            default:
+                Log.d("ttttt", "匹配");
+        }
+        adapter.notifyDataSetChanged();
+    }
+
+    /*
+    * 刷新调用的函数
+    * */
+    private void func_81(){
         final String address="http://192.168.43.61:8080/query/list";
         new Thread(new Runnable() {
             @Override
@@ -516,32 +599,13 @@ public class Fragment_main_right extends Fragment {
                             public void run() {
                                 lists.clear();
                                 List<Thing.DataBean>list_temp=thing.getData();
-                                switch(str) {
-                                    case "找失主":
-                                        func_11();
-                                        break;
-                                    case "找失物":
-                                        func_21();
-                                        break;
-                                    case "我的发布":
-                                        func_31();
-                                        break;
-                                    case "电子产品":
-                                        func_41();
-                                        break;
-                                    case "衣物":
-                                        func_51();
-                                        break;
-                                    case "其他":
-                                        func_61();
-                                        break;
-                                    case "校园卡":
-                                        func_71();
-                                        break;
-                                    default:
-                                        Log.d("ttttt", "碎片的跳转没有匹配");
+                                if(list_temp!=null){
+                                    for(int i=list_temp.size()-1;i>=0;i--){
+                                        Thing.DataBean bean=list_temp.get(i);
+                                        lists.add(bean);
+                                    }
+                                    adapter.notifyDataSetChanged();
                                 }
-                                adapter.notifyDataSetChanged();
                             }
                         });
                     }
@@ -549,10 +613,6 @@ public class Fragment_main_right extends Fragment {
             }
         }).start();
     }
-
-    /*
-    * 刷新调用的函数
-    * */
     private void func_11(){
         final String address="http://192.168.43.61:8080/query/list";
         new Thread(new Runnable() {

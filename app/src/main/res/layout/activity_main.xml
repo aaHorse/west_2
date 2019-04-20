@@ -11,7 +11,6 @@
     <com.example.zexiger.myapplication.widget.CustomRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/my_color_bai"
         >
         <LinearLayout
             android:id="@+id/line_4"
@@ -25,12 +24,22 @@
             <RelativeLayout
                 android:id="@+id/line"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                >
                 <LinearLayout
                     android:id="@+id/line_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     >
+                    <Button
+                        android:id="@+id/button_4"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="50dp"
+                        android:text="查全部"
+                        android:textColor="@color/my_color_bai"
+                        android:background="@color/my_color_hei"
+                        />
                     <Button
                         android:id="@+id/button_2"
                         android:layout_width="0dp"
