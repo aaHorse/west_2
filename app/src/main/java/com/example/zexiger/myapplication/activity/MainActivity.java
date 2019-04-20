@@ -85,6 +85,12 @@ public class MainActivity extends BaseActivity implements DefineView {
     private static Button button_2;
     private static Button button_3;
 
+    /*
+    * 全局的学号、QQ头像、昵称
+    * */
+    public String number_public="";
+    public String figureurl_qq_1_public="";
+    public String nickname_public="";
 
     /*
     * 给碎片提供Bundle
@@ -170,14 +176,15 @@ public class MainActivity extends BaseActivity implements DefineView {
             * 取最后一个添加进来的，之所以没有清除数据，我是想保留所有在这一个手机登录的登录者的头像和昵称
             * */
             QQ_messege obj=(QQ_messege)lists.get(lists.size()-1);
-            String nickname=obj.getNickname();
-            final String figureurl_qq_1=obj.getFigureurl_qq_1();
-            name.setText(nickname);
-            number.setText(obj.getNumber());
+            number_public=obj.getNumber();
+            figureurl_qq_1_public=obj.getFigureurl_qq_1();
+            nickname_public=obj.getNickname();
+            name.setText(nickname_public);
+            number.setText("学号："+obj.getNumber());
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Glide.with(MainActivity.this).load(figureurl_qq_1).into(imageView);
+                    Glide.with(MainActivity.this).load(figureurl_qq_1_public).into(imageView);
                 }
             });
         }else{
@@ -228,10 +235,10 @@ public class MainActivity extends BaseActivity implements DefineView {
 
     private void init_left(){
         lists_left.add(new LeftItemMenu(R.drawable.aaa,"账号信息"));
-        lists_left.add(new LeftItemMenu(R.drawable.icon_shoucang,"我的发布"));
-        lists_left.add(new LeftItemMenu(R.drawable.icon_shoucang,"意见反馈"));
-        lists_left.add(new LeftItemMenu(R.drawable.icon_shoucang,"关于我们"));
-        lists_left.add(new LeftItemMenu(R.drawable.icon_shoucang,"退出登录"));
+        lists_left.add(new LeftItemMenu(R.drawable.aaa_wode,"我的发布"));
+        lists_left.add(new LeftItemMenu(R.drawable.aaa_yijian,"意见反馈"));
+        lists_left.add(new LeftItemMenu(R.drawable.aaa_guanyu,"关于我们"));
+        lists_left.add(new LeftItemMenu(R.drawable.aaa_tuichu,"退出登录"));
         LeftItemAdapter adapter=new LeftItemAdapter(lists_left);
         LinearLayoutManager layoutManager=new LinearLayoutManager(this);
         swipeRecyclerView.setLayoutManager(layoutManager);
@@ -239,7 +246,10 @@ public class MainActivity extends BaseActivity implements DefineView {
             @Override
             public void onItemClick(View itemView, int position) {
                 switch (position){
-                    case 0:break;
+                    case 0:
+                        drag_layout.close();
+                        showLongMessageDialog();
+                        break;
                     case 1:
                         drag_layout.close();
                         show_hei();
@@ -283,11 +293,11 @@ public class MainActivity extends BaseActivity implements DefineView {
 
     @OnClick(R.id.button_2)void button_1(){
         button_2.setBackgroundColor(Color.parseColor("#00A8bb"));
-        button_3.setBackgroundColor(Color.parseColor("#300000"));
+        button_3.setBackgroundColor(Color.parseColor("#030000"));
         Fragment_main_right.startFragment("找失主");
     }
     @OnClick(R.id.button_3)void button_2(){
-        button_2.setBackgroundColor(Color.parseColor("#300000"));
+        button_2.setBackgroundColor(Color.parseColor("#030000"));
         button_3.setBackgroundColor(Color.parseColor("#00A8bb"));
         Fragment_main_right.startFragment("找失物");
     }
@@ -338,8 +348,8 @@ public class MainActivity extends BaseActivity implements DefineView {
     }
 
     public static void show_hei(){
-        button_2.setBackgroundColor(Color.parseColor("#300000"));
-        button_3.setBackgroundColor(Color.parseColor("#300000"));
+        button_2.setBackgroundColor(Color.parseColor("#030000"));
+        button_3.setBackgroundColor(Color.parseColor("#030000"));
     }
 
     private void showMessageNegativeDialog() {
@@ -365,6 +375,20 @@ public class MainActivity extends BaseActivity implements DefineView {
                         Toast.makeText(MainActivity.this, "退出登录成功", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                         ActivityCollector.finishAll();
+                    }
+                })
+                .create(com.qmuiteam.qmui.R.style.QMUI_Dialog).show();
+    }
+
+    private void showLongMessageDialog() {
+        new QMUIDialog.MessageDialogBuilder(MainActivity.this)
+                .setTitle("账号信息")
+                .setMessage("QQ昵称：" +nickname_public+"\n"+
+                        "学  号：" +number_public+"\n")
+                .addAction("确定", new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        dialog.dismiss();
                     }
                 })
                 .create(com.qmuiteam.qmui.R.style.QMUI_Dialog).show();

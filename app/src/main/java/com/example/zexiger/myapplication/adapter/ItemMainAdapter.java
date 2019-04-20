@@ -83,7 +83,7 @@ public class ItemMainAdapter extends RecyclerView.Adapter<ItemMainAdapter.ViewHo
             isfound.setText("已找到");
         }
         //
-        type.setText(item_main.getType());
+        type.setText("["+item_main.getType()+"]");
         //
         info.setText(item_main.getInfo());
         see.setText("浏览"+item_main.getVisits());

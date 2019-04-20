@@ -36,6 +36,11 @@
                 android:text="名字:jiangqqlmj"
                 android:textColor="@color/my_color_bai"
                 android:textSize="18sp" />
+            <View
+                android:layout_marginTop="6dp"
+                android:background="@color/my_color_bai"
+                android:layout_width="100dp"
+                android:layout_height="1dp"/>
             <TextView
                 android:id="@+id/number"
                 android:layout_marginTop="6dp"

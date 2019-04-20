@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.example.zexiger.myapplication.some.QDShadowAdjustLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.qmuiteam.qmui.layout.QMUILinearLayout
+            android:id="@+id/layout_for_test"
+            android:layout_width="300dp"
+            android:layout_height="400dp"
+            android:background="@color/qmui_config_color_white"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:qmui_outerNormalColor="?attr/qmui_config_color_background"
+            app:qmui_borderColor="?attr/qmui_config_color_separator"
+            app:qmui_showBorderOnlyBeforeL="true">
+
+            <com.classichu.lineseditview.LinesEditView
+                android:id="@+id/editText_suggest"
+                android:hint="反馈描述"
+                app:classic_maxCount="500"
+                app:classic_hintText="反馈描述"
+                app:classic_contentViewHeight="320dp"
+                android:layout_width="250dp"
+                android:layout_height="350dp">
+
+            </com.classichu.lineseditview.LinesEditView>
+
+        </com.qmuiteam.qmui.layout.QMUILinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="50dp"
+            >
+
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                android:id="@+id/send"
+                android:layout_marginLeft="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:paddingTop="10dp"
+                android:text="发送"
+                app:qmui_isRadiusAdjustBounds="true"
+                />
+        </LinearLayout>
+
+    </com.example.zexiger.myapplication.some.QDShadowAdjustLayout>
+
+</LinearLayout>

@@ -60,7 +60,7 @@ public class Fragment_sousuo extends Fragment {
 
     @OnClick(R.id.top_bar_icon)void button_back(){
         Toast.makeText(context,"你想返回！",Toast.LENGTH_SHORT).show();
-        activity.show_brife();
+        MainActivity.startActivity(context);
     }
     @Override
     public void onResume() {
@@ -71,7 +71,7 @@ public class Fragment_sousuo extends Fragment {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK){
-                    activity.show_brife();
+                    MainActivity.startActivity(context);
                     return true;
                 }
                 return false;

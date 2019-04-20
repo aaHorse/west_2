@@ -49,12 +49,35 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <com.example.zexiger.myapplication.some.QDQQFaceView
-        android:id="@+id/qqface"
+    <LinearLayout
+        android:id="@+id/line_suggest"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textSize="25sp"
-        android:textColor="?attr/qmui_config_color_gray_5"
-        android:ellipsize="start"/>
+        android:orientation="vertical"
+        android:visibility="gone"
+        >
+        <fragment
+            android:id="@+id/fragment_suggest"
+            android:name="com.example.zexiger.myapplication.fragment.Fragment_suggest"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/line_qq"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.example.zexiger.myapplication.some.QDQQFaceView
+            android:id="@+id/qqface"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="25sp"
+            android:ellipsize="start"
+            android:visibility="visible"
+            android:clickable="false"
+            />
+    </LinearLayout>
 
 </LinearLayout>

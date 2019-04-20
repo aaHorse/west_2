@@ -16,7 +16,9 @@
         >
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            >
             <RelativeLayout
                 android:id="@+id/line"
                 android:layout_width="match_parent"
@@ -24,6 +26,7 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/pic"
+                    android:layout_marginTop="5dp"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:src="@drawable/icon_avatar"
@@ -65,7 +68,9 @@
             <LinearLayout
                 android:id="@+id/line_2"
                 android:layout_below="@+id/line"
-                android:layout_width="match_parent"
+                android:layout_marginTop="5dp"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/type"

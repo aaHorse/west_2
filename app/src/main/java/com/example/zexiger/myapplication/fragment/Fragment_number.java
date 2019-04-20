@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +16,12 @@ import android.widget.Toast;
 
 import com.example.zexiger.myapplication.R;
 import com.example.zexiger.myapplication.activity.MainActivity;
+import com.example.zexiger.myapplication.base.ActivityCollector;
+import com.example.zexiger.myapplication.base.MyApplication;
 import com.example.zexiger.myapplication.db.FlagFirst;
 import com.example.zexiger.myapplication.db.QQ_messege;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,7 +50,11 @@ public class Fragment_number extends Fragment {
         String number=editText.getText().toString();
         if (number.isEmpty()){
             Toast.makeText(context,"输入不能为空",Toast.LENGTH_SHORT).show();
-        }else{
+        }else if(!isNumericZidai(number)){
+            Toast.makeText(context,"输入错误",Toast.LENGTH_SHORT).show();
+        }else if(number.length()!=9){
+            Toast.makeText(context,"该软件仅允许福州大学的学生使用",Toast.LENGTH_SHORT).show();
+        } else{
             QQ_messege obj=new QQ_messege();
             obj.setNickname(QQLogin.nickname);
             obj.setFigureurl_qq_1(QQLogin.figureurl_qq_1);
@@ -61,4 +70,55 @@ public class Fragment_number extends Fragment {
         }
     }
 
+    public static boolean isNumericZidai(String str) {
+        for (int i = 0; i < str.length(); i++) {
+            System.out.println(str.charAt(i));
+            if (!Character.isDigit(str.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK){
+                    showMessageNegativeDialog();
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+
+    private void showMessageNegativeDialog() {
+        new QMUIDialog.MessageDialogBuilder(getActivity())
+                .setTitle("注意")
+                .setMessage("是否执行取消登录？")
+                .addAction("取消", new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        dialog.dismiss();
+                    }
+                })
+                .addAction(0, "确定", QMUIDialogAction.ACTION_PROP_NEGATIVE, new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        /*
+                         * 注销QQ的第三方登录
+                         * */
+                        QQLogin.mTencent.logout(MyApplication.getContext());
+                        ActivityCollector.finishAll();
+                        Toast.makeText(getActivity(), "登录取消", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                })
+                .create(com.qmuiteam.qmui.R.style.QMUI_Dialog).show();
+    }
 }

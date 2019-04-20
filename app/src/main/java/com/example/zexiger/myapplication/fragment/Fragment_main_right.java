@@ -154,103 +154,6 @@ public class Fragment_main_right extends Fragment {
     }
 
     /*
-    * 初始化list
-    * 这一个是先查询全部，然后进行==判断，将对象加到lists中
-    * */
-/*    private void init_list(final String str){
-
-        final String address="http://192.168.43.61:8080/query/list";
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                HttpOK.getData(address, new okhttp3.Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-                        Log.d("ttttt","查询全部信息访问失败");
-                    }
-
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-                        final Thing thing=new Gson().fromJson(response.body().string(),Thing.class);
-                        activity.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                lists.clear();
-                                List<Thing.DataBean>list_temp=thing.getData();
-                                switch(str) {
-                                    case "找失主":
-                                        for(int i=list_temp.size()-1;i>=0;i--){
-                                            Thing.DataBean bean=list_temp.get(i);
-                                            if(bean.getIsfound()==1){
-                                                lists.add(bean);
-                                            }
-                                        }
-                                        break;
-                                    case "找失物":
-                                        for(int i=list_temp.size()-1;i>=0;i--){
-                                            Thing.DataBean bean=list_temp.get(i);
-                                            if(bean.getIsfound()==0){
-                                                lists.add(bean);
-                                            }
-                                        }
-                                        break;
-                                    case "我的发布":
-                                        List<QQ_messege>list_number=DataSupport.findAll(QQ_messege.class);
-                                        QQ_messege obj=list_number.get(list_number.size()-1);
-                                        for(int i=list_temp.size()-1;i>=0;i--){
-                                            Thing.DataBean bean=list_temp.get(i);
-                                            if(bean.getName().equals(obj.getNumber())){
-                                                lists.add(bean);
-                                            }
-                                        }
-                                        break;
-                                    case "电子产品":
-                                        for(int i=list_temp.size()-1;i>=0;i--){
-                                            Thing.DataBean bean=list_temp.get(i);
-                                            if(bean.getType().equals("电子产品")){
-                                                lists.add(bean);
-                                            }
-                                        }
-                                        break;
-                                    case "衣物":
-                                        for(int i=list_temp.size()-1;i>=0;i--){
-                                            Thing.DataBean bean=list_temp.get(i);
-                                            if(bean.getType().equals("衣物")){
-                                                lists.add(bean);
-                                            }
-                                        }
-                                        break;
-                                    case "其他":
-                                        for(int i=list_temp.size()-1;i>=0;i--){
-                                            Thing.DataBean bean=list_temp.get(i);
-                                            if(bean.getType().equals("其他")){
-                                                lists.add(bean);
-                                            }
-                                        }
-                                        break;
-                                    case "校园卡":
-                                        for(int i=list_temp.size()-1;i>=0;i--){
-                                            Thing.DataBean bean=list_temp.get(i);
-                                            if(bean.getType().equals("校园卡")){
-                                                lists.add(bean);
-                                            }
-                                        }
-                                        break;
-                                    default:
-                                        Log.d("ttttt", "碎片的跳转没有匹配");
-                                }
-                                init_rv();
-                                init();
-                            }
-                        });
-                    }
-                });
-            }
-        }).start();
-    }*/
-
-
-    /*
     * 下面这一个和上面一个可以实现相同的功能
     * */
     private void init_list(final String str){
@@ -382,9 +285,7 @@ public class Fragment_main_right extends Fragment {
                                 if (list_temp!=null){
                                     for(int i=list_temp.size()-1;i>=0;i--){
                                         Thing.DataBean bean=list_temp.get(i);
-                                        if(bean.getIsfound()==1){
-                                            lists.add(bean);
-                                        }
+                                        lists.add(bean);
                                     }
                                     init_rv();
                                     init();

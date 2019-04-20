@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,8 @@ import com.example.zexiger.myapplication.entity.Thing;
 import com.example.zexiger.myapplication.http_util.HttpOK;
 import com.google.gson.Gson;
 import com.qmuiteam.qmui.widget.QMUIEmptyView;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
 import org.litepal.crud.DataSupport;
@@ -53,6 +56,8 @@ import static com.example.zexiger.myapplication.base.MyApplication.getContext;
 public class OcrActivity extends BaseActivity {
     @BindView(R.id.emptyView)QMUIEmptyView emptyView;
 
+    private String text="null";//联系方式
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,17 +69,20 @@ public class OcrActivity extends BaseActivity {
                 null, getResources().getString(R.string.str_button), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // 生成intent对象
-                        Intent intent = new Intent(OcrActivity.this, CameraActivity.class);
-                        // 设置临时存储
-                        intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH, getSaveFile(getApplication()).getAbsolutePath());
-                        // 调用除银行卡，身份证等识别的activity
-                        intent.putExtra(CameraActivity.KEY_CONTENT_TYPE, CameraActivity.CONTENT_TYPE_GENERAL);
-                        startActivityForResult(intent, REQUEST_CODE_CAMERA);
+                        showEditTextDialog();
                     }
                 });
     }
 
+    private void take_phhoto(){
+        // 生成intent对象
+        Intent intent = new Intent(OcrActivity.this, CameraActivity.class);
+        // 设置临时存储
+        intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH, getSaveFile(getApplication()).getAbsolutePath());
+        // 调用除银行卡，身份证等识别的activity
+        intent.putExtra(CameraActivity.KEY_CONTENT_TYPE, CameraActivity.CONTENT_TYPE_GENERAL);
+        startActivityForResult(intent, REQUEST_CODE_CAMERA);
+    }
     private static int REQUEST_CODE_CAMERA=1;
 
 
@@ -179,7 +187,7 @@ public class OcrActivity extends BaseActivity {
         data.setAddress("26.0557538219,119.1974286674");
         data.setImage("null");
         //
-        data.setPhone("0000000");
+        data.setPhone(text);
         //
         List<QQ_messege>qq_messegeList=DataSupport.findAll(QQ_messege.class);
         QQ_messege obj=qq_messegeList.get(qq_messegeList.size()-1);
@@ -219,8 +227,6 @@ public class OcrActivity extends BaseActivity {
         super.onBackPressed();
     }
 
-
-
     private void func(final String json){
         new Thread(new Runnable() {
             @Override
@@ -259,5 +265,44 @@ public class OcrActivity extends BaseActivity {
                 });
             }
         }).start();
+    }
+
+    private void showEditTextDialog() {
+        final QMUIDialog.EditTextDialogBuilder builder = new QMUIDialog.EditTextDialogBuilder(this);
+        builder.setTitle("联系方式")
+                .setPlaceholder("在此输入你的联系方式")
+                .setInputType(InputType.TYPE_CLASS_TEXT)
+                .addAction("取消", new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        dialog.dismiss();
+                    }
+                })
+                .addAction("确定", new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        text=builder.getEditText().getText().toString();
+                        //dialog.dismiss();
+                        if (text.isEmpty()){
+                            Toast.makeText(OcrActivity.this,"尚未输入联系方式",Toast.LENGTH_SHORT).show();
+                        }else if(!isNumericZidai(text)||text.length()!=11){
+                            Toast.makeText(OcrActivity.this,"联系方式输入不正确",Toast.LENGTH_SHORT).show();
+                        }else{
+                            dialog.dismiss();
+                            take_phhoto();
+                        }
+                    }
+                })
+                .create(com.qmuiteam.qmui.R.style.QMUI_Dialog).show();
+    }
+
+    public static boolean isNumericZidai(String str) {
+        for (int i = 0; i < str.length(); i++) {
+            System.out.println(str.charAt(i));
+            if (!Character.isDigit(str.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 }

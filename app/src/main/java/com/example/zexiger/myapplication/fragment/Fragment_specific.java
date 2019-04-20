@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,7 +44,6 @@ import okhttp3.Response;
 public class Fragment_specific extends Fragment {
     private SpecificActivity activity;
     private Context context;
-    @BindView(R.id.bar_layout) ViewGroup linear_bar;
 
     //头像
     @BindView(R.id.pic)ImageView imageView;
@@ -55,8 +55,9 @@ public class Fragment_specific extends Fragment {
     @BindView(R.id.type)TextView type;
     @BindView(R.id.info)TextView info;
     @BindView(R.id.phone)TextView phone;
-    @BindView(R.id.line_9)ScrollView scrollView;
-    @BindView(R.id.line_8)LinearLayout linearLayout;
+    private static ScrollView scrollView;
+    private static LinearLayout linearLayout;
+    private static ViewGroup linear_bar;
 
     private Thing.DataBean bean;
 
@@ -76,6 +77,11 @@ public class Fragment_specific extends Fragment {
         activity=(SpecificActivity) getActivity();
         context=getContext();
         ButterKnife.bind(this,view);
+
+        scrollView=view.findViewById(R.id.line_9);
+        linearLayout=view.findViewById(R.id.line_8);
+        linear_bar=view.findViewById(R.id.bar_layout);
+
         Bundle bundle=getArguments();
         bean= (Thing.DataBean) bundle.getSerializable("flag");
         setStatusBar();
@@ -111,7 +117,7 @@ public class Fragment_specific extends Fragment {
         //
         type.setText("["+bean.getType()+"]");
         //
-        info.setText("描述："+bean.getInfo());
+        info.setText(bean.getInfo());
         //
         if(bean.getImage().equals("null")){
             Glide.with(MyApplication.getContext()).load("http://192.168.43.61:8080/img/defaultImg/default.png").into(picture);
@@ -146,6 +152,12 @@ public class Fragment_specific extends Fragment {
         scrollView.setVisibility(View.GONE);
         linearLayout.setVisibility(View.VISIBLE);
         linear_bar.setVisibility(View.GONE);
+    }
+
+    public static void xiugai_show(){
+        scrollView.setVisibility(View.VISIBLE);
+        linearLayout.setVisibility(View.GONE);
+        linear_bar.setVisibility(View.VISIBLE);
     }
 
     @OnClick(R.id.xiugai)void button_xiugai(){
@@ -186,11 +198,11 @@ public class Fragment_specific extends Fragment {
     private void set_isfound(int flag){
         if (flag==0){
             isfound.setText("已找到");
-            linearLayout_2.setBackgroundColor(Color.parseColor("#4EEE94"));
+            linearLayout_2.setBackgroundColor(Color.parseColor("#46c458"));
             funcf_isexits(1+"");
         }else{
             isfound.setText("未找到");
-            linearLayout_2.setBackgroundColor(Color.parseColor("#FF8C00"));
+            linearLayout_2.setBackgroundColor(Color.parseColor("#fa4a4a"));
             funcf_isexits(0+"");
         }
     }
@@ -200,7 +212,7 @@ public class Fragment_specific extends Fragment {
             @Override
             public void run() {
                 String address="http://192.168.43.61:8080/api/append/isexist";
-                HttpOK.func_xiugai_2(address, id + "",exist ,new Callback() {
+                HttpOK.func_xiugai_2(address, id+"" ,exist ,new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         Log.d("ttttt","修改问题是否解决失败");

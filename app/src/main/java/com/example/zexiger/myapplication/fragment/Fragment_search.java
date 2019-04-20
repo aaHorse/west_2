@@ -216,7 +216,11 @@ public class Fragment_search extends Fragment {
         phone=editText.getText().toString();
         if(info.isEmpty()){
             showLongMessageDialog();
-        }else{
+        }else if(phone.isEmpty()){
+            showLongMessageDialog_phone();
+        }else if(!isNumericZidai(phone)||phone.length()!=11){
+            showLongMessageDialog_phone_2();
+        } else{
             Gson gson=new Gson();
             final Data data=new Data();
             data.setInfo(info);
@@ -242,11 +246,7 @@ public class Fragment_search extends Fragment {
                 Log.d("ttttt","Fragment——search标记出错");
             }
             //
-            if (phone.isEmpty()){
-                data.setPhone("0");
-            }else{
-                data.setPhone(phone);
-            }
+            data.setPhone(phone);
             //
             List<QQ_messege>qq_messegeList=DataSupport.findAll(QQ_messege.class);
             QQ_messege obj=qq_messegeList.get(qq_messegeList.size()-1);
@@ -266,8 +266,6 @@ public class Fragment_search extends Fragment {
             }
             //
             data.setIsexist(0);
-
-
             final String json=gson.toJson(data);
             /*
             * 给服务器发送提交
@@ -376,6 +374,32 @@ public class Fragment_search extends Fragment {
                 .create(com.qmuiteam.qmui.R.style.QMUI_Dialog).show();
     }
 
+    private void showLongMessageDialog_phone() {
+        new QMUIDialog.MessageDialogBuilder(getActivity())
+                .setTitle("无法发布")
+                .setMessage("请填一下你的联系电话")
+                .addAction("我知道了", new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        dialog.dismiss();
+                    }
+                })
+                .create(com.qmuiteam.qmui.R.style.QMUI_Dialog).show();
+    }
+
+    private void showLongMessageDialog_phone_2() {
+        new QMUIDialog.MessageDialogBuilder(getActivity())
+                .setTitle("无法发布")
+                .setMessage("你填的联系电话出错")
+                .addAction("我知道了", new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        dialog.dismiss();
+                    }
+                })
+                .create(com.qmuiteam.qmui.R.style.QMUI_Dialog).show();
+    }
+
     public String getStringDate(Date now){
         SimpleDateFormat sdfd =new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
         String str=sdfd.format(now);
@@ -421,6 +445,16 @@ public class Fragment_search extends Fragment {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    public static boolean isNumericZidai(String str) {
+        for (int i = 0; i < str.length(); i++) {
+            System.out.println(str.charAt(i));
+            if (!Character.isDigit(str.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }
