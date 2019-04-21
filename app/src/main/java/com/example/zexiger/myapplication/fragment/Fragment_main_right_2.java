@@ -85,7 +85,7 @@ public class Fragment_main_right_2 extends Fragment {
     }
 
     private void init_list(final String json){
-        final String address="http://192.168.43.61:8080/api/append/similar";
+        final String address="http://47.95.3.253:8080/LostAndFound/api/append/similar";
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -120,7 +120,7 @@ public class Fragment_main_right_2 extends Fragment {
     }
 
     private void init_list_2(final String json){
-        final String address="http://192.168.43.61:8080/api/append/similar";
+        final String address="http://47.95.3.253:8080/LostAndFound/api/append/similar";
         new Thread(new Runnable() {
             @Override
             public void run() {

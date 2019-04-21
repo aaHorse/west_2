@@ -274,7 +274,7 @@ public class Fragment_search extends Fragment {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    String address="http://192.168.43.61:8080/api/append";
+                    String address="http://47.95.3.253:8080/LostAndFound/api/append";
                     //提交
                     HttpOK.post_json(address,json,new Callback() {
                         @Override
@@ -308,7 +308,7 @@ public class Fragment_search extends Fragment {
                     @Override
                     public void run() {
                         File file = new File(Environment.getExternalStorageDirectory()+"//liliyuan//temp.jpg");
-                        String address="http://192.168.43.61:8080/upload/setFileUpload";
+                        String address="http://47.95.3.253:8080/LostAndFound/upload/setFileUpload";
                         HttpOK.post_file(address,file,date, new Callback() {
                             @Override
                             public void onFailure(Call call, IOException e) {

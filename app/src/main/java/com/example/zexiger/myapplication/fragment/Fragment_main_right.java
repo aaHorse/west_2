@@ -201,7 +201,9 @@ public class Fragment_main_right extends Fragment {
     * 分别对应上面的功能
     * */
     private void func_1(){
-        final String address="http://192.168.43.61:8080/query/list";
+
+        //final String address="http://192.168.43.61:8080/query/list";
+        final String address="http://47.95.3.253:8080/LostAndFound/query/list";
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -237,8 +239,8 @@ public class Fragment_main_right extends Fragment {
         }).start();
     }
     private void func_8(){
-        //final String address="http://zzxmylove.cn:8080/aaa/query/list";
-        final String address="http://192.168.43.61:8080/query/list";
+        //final String address="http://192.168.43.61:8080/query/list";
+        final String address="http://47.95.3.253:8080/LostAndFound/query/list";
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -250,6 +252,7 @@ public class Fragment_main_right extends Fragment {
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
+
                         final Thing thing=new Gson().fromJson(response.body().string(),Thing.class);
                         activity.runOnUiThread(new Runnable() {
                             @Override
@@ -272,7 +275,7 @@ public class Fragment_main_right extends Fragment {
         }).start();
     }
     private void func_2(){
-        final String address="http://192.168.43.61:8080/query/list";
+        final String address="http://47.95.3.253:8080/LostAndFound/query/list";
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -311,7 +314,7 @@ public class Fragment_main_right extends Fragment {
         List<QQ_messege>list_qq=DataSupport.findAll(QQ_messege.class);
         QQ_messege obj=list_qq.get(list_qq.size()-1);
         String number=obj.getNumber();
-        final String address="http://192.168.43.61:8080/query/list/name/"+number;
+        final String address="http://47.95.3.253:8080/LostAndFound/query/list/name/"+number;
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -345,7 +348,7 @@ public class Fragment_main_right extends Fragment {
         }).start();
     }
     private void func_4(){
-        final String address="http://192.168.43.61:8080/query/list/电子产品";
+        final String address="http://47.95.3.253:8080/LostAndFound/query/list/电子产品";
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -379,7 +382,7 @@ public class Fragment_main_right extends Fragment {
         }).start();
     }
     private void func_5(){
-        final String address="http://192.168.43.61:8080/query/list/衣物";
+        final String address="http://47.95.3.253:8080/LostAndFound/query/list/衣物";
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -413,7 +416,7 @@ public class Fragment_main_right extends Fragment {
         }).start();
     }
     private void func_6(){
-        final String address="http://192.168.43.61:8080/query/list/其他";
+        final String address="http://47.95.3.253:8080/LostAndFound/query/list/其他";
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -447,7 +450,7 @@ public class Fragment_main_right extends Fragment {
         }).start();
     }
     private void func_7(){
-        final String address="http://192.168.43.61:8080/query/list/校园卡";
+        final String address="http://47.95.3.253:8080/LostAndFound/query/list/校园卡";
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -581,7 +584,7 @@ public class Fragment_main_right extends Fragment {
     * 刷新调用的函数
     * */
     private void func_81(){
-        final String address="http://192.168.43.61:8080/query/list";
+        final String address="http://47.95.3.253:8080/LostAndFound/query/list";
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -614,7 +617,7 @@ public class Fragment_main_right extends Fragment {
         }).start();
     }
     private void func_11(){
-        final String address="http://192.168.43.61:8080/query/list";
+        final String address="http://47.95.3.253:8080/LostAndFound/query/list";
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -649,7 +652,7 @@ public class Fragment_main_right extends Fragment {
         }).start();
     }
     private void func_21(){
-        final String address="http://192.168.43.61:8080/query/list";
+        final String address="http://47.95.3.253:8080/LostAndFound/query/list";
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -687,7 +690,7 @@ public class Fragment_main_right extends Fragment {
         List<QQ_messege>list_qq=DataSupport.findAll(QQ_messege.class);
         QQ_messege obj=list_qq.get(list_qq.size()-1);
         String number=obj.getNumber();
-        final String address="http://192.168.43.61:8080/query/list/name/"+number;
+        final String address="http://47.95.3.253:8080/LostAndFound/query/list/name/"+number;
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -722,7 +725,7 @@ public class Fragment_main_right extends Fragment {
         }).start();
     }
     private void func_41(){
-        final String address="http://192.168.43.61:8080/query/list/电子产品";
+        final String address="http://47.95.3.253:8080/LostAndFound/query/list/电子产品";
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -755,7 +758,7 @@ public class Fragment_main_right extends Fragment {
         }).start();
     }
     private void func_51(){
-        final String address="http://192.168.43.61:8080/query/list/衣物";
+        final String address="http://47.95.3.253:8080/LostAndFound/query/list/衣物";
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -788,7 +791,7 @@ public class Fragment_main_right extends Fragment {
         }).start();
     }
     private void func_61(){
-        final String address="http://192.168.43.61:8080/query/list/其他";
+        final String address="http://47.95.3.253:8080/LostAndFound/query/list/其他";
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -821,7 +824,7 @@ public class Fragment_main_right extends Fragment {
         }).start();
     }
     private void func_71(){
-        final String address="http://192.168.43.61:8080/query/list/校园卡";
+        final String address="http://47.95.3.253:8080/LostAndFound/query/list/校园卡";
         new Thread(new Runnable() {
             @Override
             public void run() {

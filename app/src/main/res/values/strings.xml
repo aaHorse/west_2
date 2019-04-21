@@ -2,4 +2,15 @@
     <string name="app_name">失物招领平台</string>
     <string name="str">拍照直接上传学生信息</string>
     <string name="str_button">点击拍照</string>
+
+
+    <string name="sctp">http://47.95.3.253:8080/LostAndFound/upload/setFileUpload</string>
+    <string name="cxqb">http://47.95.3.253:8080/LostAndFound/query/list</string>
+    <string name="scjson">http://47.95.3.253:8080/LostAndFound/api/append</string>
+    <string name="cxlx">http://47.95.3.253:8080/LostAndFound/query/list/</string>
+    <string name="xiugai_ll">http://47.95.3.253:8080/LostAndFound/api/append/visits</string>
+    <string name="myfabu">http://47.95.3.253:8080/LostAndFound/query/list/name/</string>
+    <string name="xiugai_exist">http://47.95.3.253:8080/LostAndFound/api/append/isexist</string>
+    <string name="xsd">http://47.95.3.253:8080/LostAndFound/api/append/similar</string>
+
 </resources>

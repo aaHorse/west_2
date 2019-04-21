@@ -211,7 +211,7 @@ public class Fragment_specific extends Fragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String address="http://192.168.43.61:8080/api/append/isexist";
+                String address="http://47.95.3.253:8080/LostAndFound/api/append/isexist";
                 HttpOK.func_xiugai_2(address, id+"" ,exist ,new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
@@ -273,7 +273,7 @@ public class Fragment_specific extends Fragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String address="http://192.168.43.61:8080/api/append/visits";
+                String address="http://47.95.3.253:8080/LostAndFound/api/append/visits";
                 HttpOK.func_xiugai(address,id, new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {

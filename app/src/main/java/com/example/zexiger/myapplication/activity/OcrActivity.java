@@ -184,7 +184,7 @@ public class OcrActivity extends BaseActivity {
         data.setDate(date);
         data.setIsfound(1);
         data.setIsexist(0);
-        data.setAddress("26.0557538219,119.1974286674");
+        data.setAddress("119.1974286674,26.0557538219");
         data.setImage("null");
         //
         data.setPhone(text);
@@ -231,7 +231,8 @@ public class OcrActivity extends BaseActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String address="http://192.168.43.61:8080/api/append";
+                //String address="http://192.168.43.61:8080/api/append";
+                String address="http://47.95.3.253:8080/LostAndFound/api/append";
                 //提交
                 HttpOK.post_json(address,json,new Callback() {
                     @Override
