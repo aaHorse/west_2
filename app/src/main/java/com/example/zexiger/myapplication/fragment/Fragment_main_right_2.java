@@ -129,7 +129,6 @@ public class Fragment_main_right_2 extends Fragment {
                     public void onFailure(Call call, IOException e) {
                         Log.d("ttttt","查询全部信息访问失败");
                     }
-
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         final Thing thing=new Gson().fromJson(response.body().string(),Thing.class);
@@ -143,6 +142,8 @@ public class Fragment_main_right_2 extends Fragment {
                                         Thing.DataBean bean=list_temp.get(i);
                                         lists.add(bean);
                                     }
+                                    swipeRecyclerView.setAdapter(adapter);
+                                    adapter.notifyDataSetChanged();
                                 }
                             }
                         });
@@ -218,7 +219,6 @@ public class Fragment_main_right_2 extends Fragment {
     public void func_reflesh(){
         lists.clear();
         init_list_2(str);
-        adapter.notifyDataSetChanged();
     }
 
 }

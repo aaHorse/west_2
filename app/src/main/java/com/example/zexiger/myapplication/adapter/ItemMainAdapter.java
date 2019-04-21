@@ -1,5 +1,6 @@
 package com.example.zexiger.myapplication.adapter;
 
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,6 +21,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static android.support.v4.view.PagerAdapter.POSITION_NONE;
 
 public class ItemMainAdapter extends RecyclerView.Adapter<ItemMainAdapter.ViewHolder> {
     private ViewHolder viewHolder;
@@ -79,8 +82,10 @@ public class ItemMainAdapter extends RecyclerView.Adapter<ItemMainAdapter.ViewHo
         if (item_main.getIsexist()==0){
             //未找到
             isfound.setText("未找到");
+            linearLayout.setBackgroundColor(Color.parseColor("#fa4a4a"));
         }else{
             isfound.setText("已找到");
+            linearLayout.setBackgroundColor(Color.parseColor("#46c458"));
         }
         //
         type.setText("["+item_main.getType()+"]");

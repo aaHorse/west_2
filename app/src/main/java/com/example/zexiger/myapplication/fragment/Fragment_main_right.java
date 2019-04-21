@@ -47,6 +47,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
+import static android.support.v4.view.PagerAdapter.POSITION_NONE;
 import static com.example.zexiger.myapplication.activity.MainActivity.show_specific;
 
 public class Fragment_main_right extends Fragment {
@@ -548,7 +549,7 @@ public class Fragment_main_right extends Fragment {
     * 刷新
     * */
     public void func_reflesh(){
-        lists.clear();
+        //lists.clear();
         switch(str) {
             case "查全部":
                 func_81();
@@ -577,7 +578,7 @@ public class Fragment_main_right extends Fragment {
             default:
                 Log.d("ttttt", "匹配");
         }
-        adapter.notifyDataSetChanged();
+        //adapter.notifyDataSetChanged();
     }
 
     /*
@@ -607,6 +608,7 @@ public class Fragment_main_right extends Fragment {
                                         Thing.DataBean bean=list_temp.get(i);
                                         lists.add(bean);
                                     }
+                                    swipeRecyclerView.setAdapter(adapter);
                                     adapter.notifyDataSetChanged();
                                 }
                             }
@@ -642,6 +644,7 @@ public class Fragment_main_right extends Fragment {
                                             lists.add(bean);
                                         }
                                     }
+                                    swipeRecyclerView.setAdapter(adapter);
                                     adapter.notifyDataSetChanged();
                                 }
                             }
@@ -677,6 +680,7 @@ public class Fragment_main_right extends Fragment {
                                             lists.add(bean);
                                         }
                                     }
+                                    swipeRecyclerView.setAdapter(adapter);
                                     adapter.notifyDataSetChanged();
                                 }
                             }
@@ -715,6 +719,7 @@ public class Fragment_main_right extends Fragment {
                                             lists.add(bean);
                                         }
                                     }
+                                    swipeRecyclerView.setAdapter(adapter);
                                     adapter.notifyDataSetChanged();
                                 }
                             }
@@ -748,6 +753,7 @@ public class Fragment_main_right extends Fragment {
                                         Thing.DataBean bean=list_temp.get(i);
                                         lists.add(bean);
                                     }
+                                    swipeRecyclerView.setAdapter(adapter);
                                     adapter.notifyDataSetChanged();
                                 }
                             }
@@ -781,6 +787,7 @@ public class Fragment_main_right extends Fragment {
                                         Thing.DataBean bean=list_temp.get(i);
                                         lists.add(bean);
                                     }
+                                    swipeRecyclerView.setAdapter(adapter);
                                     adapter.notifyDataSetChanged();
                                 }
                             }
@@ -814,6 +821,7 @@ public class Fragment_main_right extends Fragment {
                                         Thing.DataBean bean=list_temp.get(i);
                                         lists.add(bean);
                                     }
+                                    swipeRecyclerView.setAdapter(adapter);
                                     adapter.notifyDataSetChanged();
                                 }
                             }
@@ -847,6 +855,7 @@ public class Fragment_main_right extends Fragment {
                                         Thing.DataBean bean=list_temp.get(i);
                                         lists.add(bean);
                                     }
+                                    swipeRecyclerView.setAdapter(adapter);
                                     adapter.notifyDataSetChanged();
                                 }
                             }
@@ -856,4 +865,5 @@ public class Fragment_main_right extends Fragment {
             }
         }).start();
     }
+
 }

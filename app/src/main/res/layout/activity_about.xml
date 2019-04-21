@@ -80,7 +80,7 @@
         <LinearLayout
             android:id="@+id/line_about_2"
             android:layout_below="@+id/text"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="80dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -89,28 +89,28 @@
             <TextView
                 android:id="@+id/text_1"
                 android:text="开发团队：旗山的骄傲"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/text_2"
                 android:layout_marginTop="10dp"
                 android:text="后端：陈浩男 221701412"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/text_3"
                 android:layout_marginTop="10dp"
                 android:text="前端：程伟行 221701420"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/text_4"
                 android:layout_marginTop="10dp"
                 android:text="安卓：黎家泽 221701414"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
