@@ -241,11 +241,6 @@ public class OcrActivity extends BaseActivity {
                            @Override
                            public void run() {
                                Toast.makeText(MyApplication.getContext(),"信息发布失败",Toast.LENGTH_SHORT).show();
-/*                               QMUITipDialog tipDialog = new QMUITipDialog.Builder(getContext())
-                                       .setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING)
-                                       .setTipWord("信息发布失败")
-                                       .create();
-                               tipDialog.show();*/
                            }
                        });
                     }

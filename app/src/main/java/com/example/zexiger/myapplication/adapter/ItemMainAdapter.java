@@ -63,6 +63,7 @@ public class ItemMainAdapter extends RecyclerView.Adapter<ItemMainAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         Thing.DataBean item_main=(Thing.DataBean)lists.get(i);
         //
+
         if (!item_main.getQq_image().isEmpty()){
             //如果QQ头像的图片链接存在
             Glide.with(MyApplication.getContext()).load(item_main.getQq_image()).into(pic);
